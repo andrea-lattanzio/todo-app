@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
 import Spinner from "./components/Spinner.tsx";
 
-const Home = React.lazy(() => import("./Routes/Home.tsx"));
+const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html, #root {
-  height: 100%;
-  margin: 0;
-  background-color: #262f38;
+@layer base {
+  body,
+  html,
+  #root {
+    @apply h-full m-0 bg-[#262f38];
+  }
 }

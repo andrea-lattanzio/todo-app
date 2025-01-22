@@ -7,5 +7,6 @@
   html,
   #root {
     @apply h-full m-0 bg-[#262f38];
+    padding: 0 !important;
   }
 }

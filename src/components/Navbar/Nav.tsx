@@ -18,10 +18,10 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
         to="/blog"
         onClick={onToggle}
         className={({ isActive }) => {
-          const baseStyles = "text-xl font-semibold";
+          const baseStyles = "text-xl";
           const activeStyles = isActive
-            ? "text-yellow-300 underline"
-            : "hover:text-yellow-300";
+            ? "text-[#ffa552] font-semibold"
+            : "hover:text-[#fcde9c]";
           return `${baseStyles} ${activeStyles}`;
         }}
       >
@@ -31,10 +31,10 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
         to="/about"
         onClick={onToggle}
         className={({ isActive }) => {
-          const baseStyles = "text-xl font-semibold";
+          const baseStyles = "text-xl";
           const activeStyles = isActive
-            ? "text-yellow-300 underline"
-            : "hover:text-yellow-300";
+            ? "text-[#ffa552] font-semibold"
+            : "hover:text-[#fcde9c]";
           return `${baseStyles} ${activeStyles}`;
         }}
       >
@@ -44,10 +44,10 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
         to="/github"
         onClick={onToggle}
         className={({ isActive }) => {
-          const baseStyles = "text-xl font-semibold";
+          const baseStyles = "text-xl";
           const activeStyles = isActive
-            ? "text-yellow-300 underline"
-            : "hover:text-yellow-300";
+            ? "text-[#ffa552] font-semibold"
+            : "hover:text-[#fcde9c]";
           return `${baseStyles} ${activeStyles}`;
         }}
       >
@@ -88,17 +88,17 @@ const Nav = () => {
             variants={mobileNavContainerVariant}
             initial="hidden"
             animate="show"
-            className="mt-4 basis-full md:hidden"
+            className="mt-4 basis-full md:hidden text-center space-y-2"
           >
             <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
               <NavLink
                 to="/blog"
                 onClick={() => toggleNavbar(true)}
                 className={({ isActive }) => {
-                  const baseStyles = "text-xl font-semibold";
+                  const baseStyles = "text-xl";
                   const activeStyles = isActive
-                    ? "text-yellow-300 underline"
-                    : "hover:text-yellow-300";
+                    ? "text-[#ffa552] font-semibold"
+                    : "hover:text-[#fcde9c]";
                   return `${baseStyles} ${activeStyles}`;
                 }}
               >
@@ -110,10 +110,10 @@ const Nav = () => {
                 to="/about"
                 onClick={() => toggleNavbar(true)}
                 className={({ isActive }) => {
-                  const baseStyles = "text-xl font-semibold";
+                  const baseStyles = "text-xl";
                   const activeStyles = isActive
-                    ? "text-yellow-300 underline"
-                    : "hover:text-yellow-300";
+                    ? "text-[#ffa552] font-semibold"
+                    : "hover:text-[#fcde9c]";
                   return `${baseStyles} ${activeStyles}`;
                 }}
               >
@@ -125,10 +125,10 @@ const Nav = () => {
                 to="/github"
                 onClick={() => toggleNavbar(true)}
                 className={({ isActive }) => {
-                  const baseStyles = "text-xl font-semibold";
+                  const baseStyles = "text-xl";
                   const activeStyles = isActive
-                    ? "text-yellow-300 underline"
-                    : "hover:text-yellow-300";
+                    ? "text-[#ffa552] font-semibold"
+                    : "hover:text-[#fcde9c]";
                   return `${baseStyles} ${activeStyles}`;
                 }}
               >

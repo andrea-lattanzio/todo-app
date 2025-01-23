@@ -12,24 +12,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-
-{
-  /* <div className="mx-auto flex justify-between items-center">
-        <div className="flex justify-between items-center">
-          <i className="bi bi-check2-circle text-2xl font-extrabold"></i>
-          <h1 className="text-lg font-bold ml-2">Todo App</h1>
-        </div>
-        <ul className="flex space-x-4">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "text-yellow-300" : "hover:text-yellow-300"
-              }
-            >
-              Get to know me
-            </NavLink>
-          </li>
-        </ul>
-      </div> */
-}

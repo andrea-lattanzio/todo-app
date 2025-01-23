@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  mobileNavContainerVariant,
+  mobileNavListVariant,
+  mobileNavExitProps,
+} from "../../data/animationConfig";
 
 interface NavLinksProps {
   onToggle: () => void;
@@ -55,15 +61,14 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = (isMobile: boolean) => {
-    if(isMobile)
-      setIsOpen(!isOpen);
+    if (isMobile) setIsOpen(!isOpen);
   };
 
   return (
     <>
       <nav className="w-1/3 flex justify-end">
         <div className="hidden w-full justify-between md:flex">
-          <NavLinks onToggle={() => toggleNavbar(false)}/>
+          <NavLinks onToggle={() => toggleNavbar(false)} />
         </div>
         <div className="md:hidden">
           <button onClick={() => toggleNavbar(true)}>
@@ -75,11 +80,64 @@ const Nav = () => {
           </button>
         </div>
       </nav>
-      {isOpen && (
-        <div className="mt-4 flex flex-col items-center basis-full space-y-4">
-          <NavLinks onToggle={() => toggleNavbar(true)}></NavLinks>
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {isOpen && (
+          <motion.div
+            layout="position"
+            key="nav-links"
+            variants={mobileNavContainerVariant}
+            initial="hidden"
+            animate="show"
+            className="mt-4 basis-full md:hidden"
+          >
+            <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
+              <NavLink
+                to="/blog"
+                onClick={() => toggleNavbar(true)}
+                className={({ isActive }) => {
+                  const baseStyles = "text-xl font-semibold";
+                  const activeStyles = isActive
+                    ? "text-yellow-300 underline"
+                    : "hover:text-yellow-300";
+                  return `${baseStyles} ${activeStyles}`;
+                }}
+              >
+                Blog
+              </NavLink>
+            </motion.div>
+            <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
+              <NavLink
+                to="/about"
+                onClick={() => toggleNavbar(true)}
+                className={({ isActive }) => {
+                  const baseStyles = "text-xl font-semibold";
+                  const activeStyles = isActive
+                    ? "text-yellow-300 underline"
+                    : "hover:text-yellow-300";
+                  return `${baseStyles} ${activeStyles}`;
+                }}
+              >
+                About me
+              </NavLink>
+            </motion.div>
+            <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
+              <NavLink
+                to="/github"
+                onClick={() => toggleNavbar(true)}
+                className={({ isActive }) => {
+                  const baseStyles = "text-xl font-semibold";
+                  const activeStyles = isActive
+                    ? "text-yellow-300 underline"
+                    : "hover:text-yellow-300";
+                  return `${baseStyles} ${activeStyles}`;
+                }}
+              >
+                Github profile
+              </NavLink>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

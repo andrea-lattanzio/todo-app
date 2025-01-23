@@ -15,19 +15,6 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
   return (
     <>
       <NavLink
-        to="/blog"
-        onClick={onToggle}
-        className={({ isActive }) => {
-          const baseStyles = "text-xl";
-          const activeStyles = isActive
-            ? "text-[#ffa552] font-semibold"
-            : "hover:text-[#fcde9c]";
-          return `${baseStyles} ${activeStyles}`;
-        }}
-      >
-        Blog
-      </NavLink>
-      <NavLink
         to="/about"
         onClick={onToggle}
         className={({ isActive }) => {
@@ -39,6 +26,19 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
         }}
       >
         About me
+      </NavLink>
+      <NavLink
+        to="/blog"
+        onClick={onToggle}
+        className={({ isActive }) => {
+          const baseStyles = "text-xl";
+          const activeStyles = isActive
+            ? "text-[#ffa552] font-semibold"
+            : "hover:text-[#fcde9c]";
+          return `${baseStyles} ${activeStyles}`;
+        }}
+      >
+        Blog
       </NavLink>
       <NavLink
         to="/github"
@@ -66,7 +66,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="w-1/3 flex justify-end">
+      <nav className="w-1/4 flex justify-end">
         <div className="hidden w-full justify-between md:flex">
           <NavLinks onToggle={() => toggleNavbar(false)} />
         </div>

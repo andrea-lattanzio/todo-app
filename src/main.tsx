@@ -5,7 +5,8 @@ import App from "./App.tsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
 import Spinner from "./components/Spinner.tsx";
-import Navbar from "./components/Navbar.tsx";
+import Navbar from "./components/Navbar/Navbar.tsx";
+import Sidebar from "./components/Sidebar.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Navbar />
+      <Sidebar />
       <Routes>
         <Route>
           <Route path="/" element={<App />} />

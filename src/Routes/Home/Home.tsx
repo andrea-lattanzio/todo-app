@@ -18,7 +18,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="mt-8 flex flex-col items-center justify-center">
       <h2 className="text-2xl font-semibold mb-4">Todo List</h2>
       <TodoList todos={todos} onToggle={handleToggle} />
     </div>

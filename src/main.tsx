@@ -16,27 +16,29 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Navbar />
       <Sidebar />
-      <Routes>
-        <Route>
-          <Route path="/" element={<App />} />
-          <Route
-            index
-            element={
-              <Suspense fallback={<Spinner />}>
-                <Home />
-              </Suspense>
-            }
-          />
-          <Route
-            path="about"
-            element={
-              <Suspense fallback={<Spinner />}>
-                <About />
-              </Suspense>
-            }
-          />
-        </Route>
-      </Routes>
+      <div className="lg:ml-[20%] ml-0">
+        <Routes>
+          <Route>
+            <Route path="/" element={<App />} />
+            <Route
+              index
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <Home />
+                </Suspense>
+              }
+            />
+            <Route
+              path="about"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <About />
+                </Suspense>
+              }
+            />
+          </Route>
+        </Routes>
+      </div>
     </BrowserRouter>
   </StrictMode>
 );

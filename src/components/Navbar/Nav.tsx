@@ -66,7 +66,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="w-1/4 flex justify-end">
+      <nav className="w-1/4 sm:w-1/3 flex justify-end">
         <div className="hidden w-full justify-between md:flex">
           <NavLinks onToggle={() => toggleNavbar(false)} />
         </div>

@@ -1,13 +1,13 @@
 import { TodoListProps } from "./interfaces/Todo";
 import TodoItem from "./TodoItem";
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onToggle }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
-    <ul>
+    <div className="h-96 w-[90%] overflow-y-scroll bg-gray-100 p-4 rounded-lg shadow-lg">
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
+        <TodoItem key={todo.id} todo={todo} />
       ))}
-    </ul>
+    </div>
   );
 };
 

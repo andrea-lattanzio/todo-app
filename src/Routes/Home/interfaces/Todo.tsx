@@ -1,15 +1,21 @@
-export interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
+export interface TodoListItem {
+  id: string;
+  name: string;
+  description: string;
+  dueDate: string;
+  priority: "HIGH" | "MEDIUM" | "LOW";
+  status: "PENDING" | "COMPLETED";
+  createdAt: string;
+  updatedAt: string;
+  categories: { name: string }[];
+  tags: { name: string; color: string }[];
+  users: { username: string; email: string }[];
 }
 
 export interface TodoListProps {
-  todos: Todo[];
-  onToggle: (id: number) => void;
+  todos: TodoListItem[];
 }
 
 export interface TodoItemProps {
-  todo: Todo;  // Individual todo object passed as a prop
-  onToggle: (id: number) => void;  // Function to toggle completion
+  todo: TodoListItem;
 }

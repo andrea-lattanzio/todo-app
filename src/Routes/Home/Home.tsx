@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { TodoListItem } from "./interfaces/Todo";
-import TodoList from "./TodoList";
+import { TodoListItem } from "./types/todo";
+import TodoList from "./components/TodoList";
 
 const Home = () => {
   const [todos, setTodos] = useState<TodoListItem[]>([

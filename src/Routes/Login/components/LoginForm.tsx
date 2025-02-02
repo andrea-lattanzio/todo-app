@@ -1,53 +1,42 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-interface LoginFormProps {
-  onSubmitForm: (data: LoginFormSchema) => void;
-}
-
-const loginSchema = z.object({
-  email: z.string().email("Email must be a valid email address"),
-  password: z.string(),
-});
-
-export type LoginFormSchema = z.infer<typeof loginSchema>;
+import { LoginFormProps, LoginFormSchema, loginSchema } from "../types/login";
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<LoginFormSchema>({
     resolver: zodResolver(loginSchema),
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
+    <div className="mt-36 flex flex-col items-center justify-center">
+      <div className="w-full max-w-md p-8 space-y-6 rounded-2xl">
+        <h2 className="text-3xl font-bold text-center text-white tracking-wider">Login</h2>
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-white tracking-wide">
                 Email
               </label>
               <input
                 type="email"
-                className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
                 placeholder="Enter your email"
                 {...register("email")}
               />
-              {errors.email && <label>{errors.email.message}</label>}
+              {errors.email && <label className="text-red-500">{errors.email.message}</label>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-white tracking-wide">
                 Password
               </label>
               <input
                 type="password"
-                className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
                 placeholder="Enter your password"
                 {...register("password")}
               />
@@ -55,16 +44,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
             </div>
             <button
               type="submit"
-              className="w-full py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition duration-200"
-              disabled={!isValid}
+              className="w-full py-2 text-white bg-[#FB8B24] rounded-lg hover:bg-[#bc732e] transition duration-200 cursor-pointer"
             >
               Sign In
             </button>
           </div>
         </form>
-        <p className="text-sm text-center text-gray-600">
+        <p className="text-sm text-center text-white tracking-wide">
           Don't have an account?{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <a href="#" className="text-[#bc732e] hover:underline">
             Sign up
           </a>
         </p>

@@ -1,15 +1,17 @@
-import LoginForm, { LoginFormSchema } from "./components/LoginForm";
+import login from "./api/post.login";
+import LoginForm from "./components/LoginForm";
+import { LoginFormSchema } from "./types/login";
 
 const Login = () => {
-  const onSubmit = (data: LoginFormSchema) => {
-    console.log(data);
-  }
+  const onSubmit = async (data: LoginFormSchema) => {
+    await login(data);
+  };
 
   return (
     <div>
-      <LoginForm onSubmitForm={onSubmit}/>
+      <LoginForm onSubmitForm={onSubmit} />
     </div>
   );
-}
+};
 
 export default Login;

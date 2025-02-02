@@ -7,6 +7,7 @@ import React, { Suspense } from "react";
 import Spinner from "./components/Spinner.tsx";
 import Navbar from "./components/Navbar/Navbar.tsx";
 import Sidebar from "./components/Sidebar.tsx";
+import Login from "./Routes/Login/Login.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
@@ -33,6 +34,14 @@ createRoot(document.getElementById("root")!).render(
               element={
                 <Suspense fallback={<Spinner />}>
                   <About />
+                </Suspense>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <Login />
                 </Suspense>
               }
             />

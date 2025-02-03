@@ -10,3 +10,12 @@ export const loginSchema = z.object({
 });
 
 export type LoginFormSchema = z.infer<typeof loginSchema>;
+
+export interface LoginResponse {
+  token: string;
+  user: User;
+}
+
+interface User {
+  email: string;
+}

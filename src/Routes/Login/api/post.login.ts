@@ -1,6 +1,7 @@
 import { LoginFormSchema } from "../types/login.types";
 
 export default async function login(data: LoginFormSchema) {
+
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -9,8 +10,7 @@ export default async function login(data: LoginFormSchema) {
 
   const responseData = await response.json();
   if (!response.ok) {
-    console.log(responseData.message || "Login failed");
+    throw new Error(responseData.message);
   }
-  localStorage.setItem("authToken", responseData.token);
   return responseData;
 }

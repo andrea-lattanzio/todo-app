@@ -10,17 +10,30 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const context = useContext(AuthContext);
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = async (data: LoginFormSchema) => {
+  const onSubmit = (data: LoginFormSchema) => {
     setLoading(true);
-    const response: LoginResponse = await login(data);
-    context.setUser(response.user);
+    handleLogin(data);
     setLoading(false);
-    navigate('/');
+  };
+
+  const handleLogin = async (data: LoginFormSchema) => {
+    try {
+      const response: LoginResponse = await login(data);
+      context.setUser(response.user);
+      localStorage.setItem("authToken", response.token);
+      navigate("/");
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+    }
   };
 
   return (
-    <div>{loading ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} />}</div>
+    <div>
+      {loading ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} />}
+      <div> {error && <p className="text-red-500">{error}</p>}</div>
+    </div>
   );
 };
 

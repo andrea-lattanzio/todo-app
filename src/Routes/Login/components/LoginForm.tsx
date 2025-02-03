@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormProps, LoginFormSchema, loginSchema } from "../types/login";
+import {
+  LoginFormProps,
+  LoginFormSchema,
+  loginSchema,
+} from "../types/login.types";
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
   const {
@@ -15,11 +19,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
   return (
     <div className="mt-36 flex flex-col items-center justify-center">
       <div className="w-full max-w-md p-8 space-y-6 rounded-2xl">
-        <h2 className="text-3xl font-bold text-center text-white tracking-wider">Login</h2>
+        <h2 className="text-3xl font-bold text-center text-white tracking-wider select-none">
+          Login
+        </h2>
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white tracking-wide">
+              <label className="block text-sm font-medium text-white tracking-wide select-none">
                 Email
               </label>
               <input
@@ -28,10 +34,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
                 placeholder="Enter your email"
                 {...register("email")}
               />
-              {errors.email && <label className="text-red-500">{errors.email.message}</label>}
+              {errors.email && (
+                <label className="text-red-500">{errors.email.message}</label>
+              )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-white tracking-wide">
+              <label className="block text-sm font-medium text-white tracking-wide select-none">
                 Password
               </label>
               <input
@@ -50,7 +58,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
             </button>
           </div>
         </form>
-        <p className="text-sm text-center text-white tracking-wide">
+        <p className="text-sm text-center text-white tracking-wide select-none">
           Don't have an account?{" "}
           <a href="#" className="text-[#bc732e] hover:underline">
             Sign up

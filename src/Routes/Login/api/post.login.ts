@@ -11,6 +11,6 @@ export default async function login(data: LoginFormSchema) {
   if (!response.ok) {
     console.log(responseData.message || "Login failed");
   }
-
   localStorage.setItem("authToken", responseData.token);
+  return responseData;
 }

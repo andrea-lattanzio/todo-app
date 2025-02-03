@@ -16,6 +16,6 @@ export interface LoginResponse {
   user: User;
 }
 
-interface User {
+export interface User {
   email: string;
 }

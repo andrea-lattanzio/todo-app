@@ -1,28 +1,28 @@
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  LoginFormProps,
-  LoginFormSchema,
-  loginSchema,
-} from "../types/login.types";
+  RegisterFormProps,
+  RegisterFormSchema,
+  registerSchema,
+} from "../types/register.types";
+import { useForm } from "react-hook-form";
 import FormError from "../../../components/ui/forms/Form.error";
 import { NavLink } from "react-router-dom";
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitForm, error }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormSchema>({
-    resolver: zodResolver(loginSchema),
-    mode: "onSubmit",
+  } = useForm<RegisterFormSchema>({
+    resolver: zodResolver(registerSchema),
+    mode: "onChange",
   });
 
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-md p-8 space-y-6 rounded-2xl">
         <h2 className="text-3xl font-bold text-center text-white tracking-wider select-none">
-          Login
+          Sign up
         </h2>
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="space-y-4">
@@ -62,15 +62,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
               type="submit"
               className="w-full py-2 text-white bg-[#FB8B24] rounded-lg hover:bg-[#bc732e] transition duration-200 cursor-pointer"
             >
-              Sign In
+              Sign up
             </button>
             {error && <FormError message={error} />}
           </div>
         </form>
         <p className="text-sm text-center text-white tracking-wide select-none">
-          Don't have an account?{" "}
-          <NavLink to="/register" className="text-[#bc732e] hover:underline">
-            Sign up
+          Already have an account?{" "}
+          <NavLink to="/login" className="text-[#bc732e] hover:underline">
+            Sign in
           </NavLink>
         </p>
       </div>
@@ -78,4 +78,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

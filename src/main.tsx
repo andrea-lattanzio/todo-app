@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthContext } from "./context/auth.context.ts";
 import { User } from "./Routes/Login/types/login.types.ts";
+import Register from "./Routes/Register/Register.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
@@ -51,6 +52,14 @@ const Root = () => {
                   element={
                     <Suspense fallback={<Spinner />}>
                       <Login />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="register"
+                  element={
+                    <Suspense fallback={<Spinner />}>
+                      <Register />
                     </Suspense>
                   }
                 />

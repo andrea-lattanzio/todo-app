@@ -12,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = (data: LoginFormSchema) => {
+  const onSubmit = async (data: LoginFormSchema) => {
     setLoading(true);
     handleLogin(data);
     setLoading(false);
@@ -30,9 +30,8 @@ const Login = () => {
   };
 
   return (
-    <div>
-      {loading ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} />}
-      <div> {error && <p className="text-red-500">{error}</p>}</div>
+    <div className="pt-32">
+      {loading ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} error={error} />}
     </div>
   );
 };

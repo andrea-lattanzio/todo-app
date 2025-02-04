@@ -5,8 +5,9 @@ import {
   LoginFormSchema,
   loginSchema,
 } from "../types/login.types";
+import FormError from "../../../components/ui/forms/Form.error";
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
   const {
     register,
     handleSubmit,
@@ -17,7 +18,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
   });
 
   return (
-    <div className="mt-36 flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-md p-8 space-y-6 rounded-2xl">
         <h2 className="text-3xl font-bold text-center text-white tracking-wider select-none">
           Login
@@ -29,13 +30,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
                 Email
               </label>
               <input
-                type="email"
+                type="text"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
-                placeholder="Enter your email"
+                placeholder="E-mail"
                 {...register("email")}
               />
               {errors.email && (
-                <label className="text-red-500">{errors.email.message}</label>
+                <FormError
+                  message={errors.email.message ?? "E-mail is not valid"}
+                />
               )}
             </div>
             <div>
@@ -45,10 +48,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
               <input
                 type="password"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
-                placeholder="Enter your password"
+                placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <label>{errors.password.message}</label>}
+              {errors.password && (
+                <FormError
+                  message={errors.password.message ?? "Password is not valid"}
+                />
+              )}
             </div>
             <button
               type="submit"
@@ -56,6 +63,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
             >
               Sign In
             </button>
+            {error && <FormError message={error} />}
           </div>
         </form>
         <p className="text-sm text-center text-white tracking-wide select-none">

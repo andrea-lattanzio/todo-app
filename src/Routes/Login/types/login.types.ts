@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export interface LoginFormProps {
   onSubmitForm: (data: LoginFormSchema) => void;
+  error: string | null;
 }
 
 export const loginSchema = z.object({

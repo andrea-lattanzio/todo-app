@@ -15,7 +15,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitForm, error }) => {
     formState: { errors },
   } = useForm<RegisterFormSchema>({
     resolver: zodResolver(registerSchema),
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
   return (

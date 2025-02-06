@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import login from "./api/post.login";
+import login from "./api/login";
 import LoginForm from "./components/LoginForm";
 import { LoginFormSchema, LoginResponse } from "./types/login.types";
 import Spinner from "../../components/Spinner";

@@ -27,32 +27,16 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
       >
         About me
       </NavLink>
-      <NavLink
-        to="/blog"
-        onClick={onToggle}
-        className={({ isActive }) => {
-          const baseStyles = "text-xl";
-          const activeStyles = isActive
-            ? "text-[#ffa552] font-semibold"
-            : "hover:text-[#fcde9c]";
-          return `${baseStyles} ${activeStyles}`;
-        }}
-      >
+      <a href="" className="text-xl">
         Blog
-      </NavLink>
-      <NavLink
-        to="/github"
-        onClick={onToggle}
-        className={({ isActive }) => {
-          const baseStyles = "text-xl";
-          const activeStyles = isActive
-            ? "text-[#ffa552] font-semibold"
-            : "hover:text-[#fcde9c]";
-          return `${baseStyles} ${activeStyles}`;
-        }}
+      </a>
+      <a
+        href="https://github.com/andrea-lattanzio"
+        className="text-xl hover:text-[#fcde9c] flex items-center"
       >
-        Github profile
-      </NavLink>
+        <i className="bi bi-github mr-2 text-xl"></i>
+        Github Profile
+      </a>
     </>
   );
 };
@@ -92,28 +76,13 @@ const Nav = () => {
           >
             <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
               <NavLink
-                to="/blog"
-                onClick={() => toggleNavbar(true)}
-                className={({ isActive }) => {
-                  const baseStyles = "text-xl";
-                  const activeStyles = isActive
-                    ? "text-[#ffa552] font-semibold"
-                    : "hover:text-[#fcde9c]";
-                  return `${baseStyles} ${activeStyles}`;
-                }}
-              >
-                Blog
-              </NavLink>
-            </motion.div>
-            <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
-              <NavLink
                 to="/about"
                 onClick={() => toggleNavbar(true)}
                 className={({ isActive }) => {
                   const baseStyles = "text-xl";
                   const activeStyles = isActive
                     ? "text-[#ffa552] font-semibold"
-                    : "hover:text-[#fcde9c]";
+                    : "";
                   return `${baseStyles} ${activeStyles}`;
                 }}
               >
@@ -121,19 +90,15 @@ const Nav = () => {
               </NavLink>
             </motion.div>
             <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
-              <NavLink
-                to="/github"
-                onClick={() => toggleNavbar(true)}
-                className={({ isActive }) => {
-                  const baseStyles = "text-xl";
-                  const activeStyles = isActive
-                    ? "text-[#ffa552] font-semibold"
-                    : "hover:text-[#fcde9c]";
-                  return `${baseStyles} ${activeStyles}`;
-                }}
-              >
-                Github profile
-              </NavLink>
+              <a href="" className="text-xl">
+                Blog
+              </a>
+            </motion.div>
+            <motion.div variants={mobileNavListVariant} {...mobileNavExitProps}>
+              <a href="https://github.com/andrea-lattanzio" className="text-xl">
+                <i className="bi bi-github mr-2 text-xl"></i>
+                Github Profile
+              </a>
             </motion.div>
           </motion.div>
         )}

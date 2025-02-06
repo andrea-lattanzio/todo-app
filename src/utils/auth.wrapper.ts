@@ -1,4 +1,7 @@
-const authenticatedFetch = async (url: string, options: RequestInit = {}) => {
+const authenticatedFetch = async <T>(
+  url: string,
+  options: RequestInit = {}
+): Promise<T> => {
   const authToken = localStorage.getItem("authToken");
   const headers: HeadersInit = {
     "Content-type": "application/json",
@@ -21,16 +24,16 @@ const authenticatedFetch = async (url: string, options: RequestInit = {}) => {
 
     if (response.status === 401) {
       localStorage.removeItem("authToken");
-      window.location.href = "/login";
+      throw new Error("Unauthorized");
     }
 
-    const data = await response.json();
+    if (response.status === 400) {
+      throw new Error("Bad request");
+    }
 
-    if (!response.ok) throw new Error(data.message || "An error occured");
-
+    const data: T = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

@@ -13,6 +13,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthContext } from "./context/auth.context.ts";
 import { User } from "./Routes/Login/types/login.types.ts";
 import Register from "./Routes/Register/Register.tsx";
+import PrivateRoute from "./Routes/PrivateRoute.tsx";
+import AddTask from "./Routes/AddTask/AddTask.tsx";
+import Categories from "./Routes/Categories/Categories.tsx";
+import Tags from "./Routes/Tags/Tags.tsx";
+import Profile from "./Routes/Profile/Profile.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
@@ -34,9 +39,51 @@ const Root = () => {
                 <Route
                   index
                   element={
-                    <Suspense fallback={<Spinner />}>
-                      <Home />
-                    </Suspense>
+                    <PrivateRoute>
+                      <Suspense fallback={<Spinner />}>
+                        <Home />
+                      </Suspense>
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/add"
+                  element={
+                    <PrivateRoute>
+                      <Suspense fallback={<Spinner />}>
+                        <AddTask />
+                      </Suspense>
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/categories"
+                  element={
+                    <PrivateRoute>
+                      <Suspense fallback={<Spinner />}>
+                        <Categories />
+                      </Suspense>
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/tags"
+                  element={
+                    <PrivateRoute>
+                      <Suspense fallback={<Spinner />}>
+                        <Tags />
+                      </Suspense>
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <Suspense fallback={<Spinner />}>
+                        <Profile />
+                      </Suspense>
+                    </PrivateRoute>
                   }
                 />
                 <Route

@@ -27,7 +27,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ onToggle }) => {
       >
         About me
       </NavLink>
-      <a href="" className="text-xl">
+      <a href="" className="text-xl hover:text-[#fcde9c]">
         Blog
       </a>
       <a

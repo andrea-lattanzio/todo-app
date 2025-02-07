@@ -1,121 +1,90 @@
 import { useEffect, useMemo, useState } from "react";
 import TaskList from "./components/TaskList";
-import { TaskListItem, TaskListProps } from "./types/task";
+import { TaskListItem } from "./types/task";
 import Spinner from "../../components/Spinner";
 import getTasks from "./api/getTasks";
-
-const tasksArray: TaskListItem[] = [
-  {
-    id: "1",
-    name: "Complete Project Proposal",
-    description:
-      "Finalize the proposal for the upcoming project and submit it.",
-    dueDate: "2025-02-10",
-    priority: "HIGH",
-    status: "PENDING",
-    createdAt: "2025-02-01T10:00:00Z",
-    updatedAt: "2025-02-01T10:00:00Z",
-    categories: [{ name: "Work" }],
-    tags: [{ name: "Urgent", color: "red" }],
-    userId: "user1",
-    user: { email: "user1@example.com" },
-  },
-  {
-    id: "2",
-    name: "Team Meeting",
-    description: "Organize and attend the weekly team meeting.",
-    dueDate: "2025-02-07",
-    priority: "MEDIUM",
-    status: "PENDING",
-    createdAt: "2025-02-02T09:30:00Z",
-    updatedAt: "2025-02-02T09:30:00Z",
-    categories: [{ name: "Work" }, { name: "Meetings" }],
-    tags: [{ name: "Weekly", color: "blue" }],
-    userId: "user2",
-    user: { email: "user2@example.com" },
-  },
-  {
-    id: "3",
-    name: "Grocery Shopping",
-    description:
-      "Buy groceries for the week including vegetables, fruits, and snacks.",
-    dueDate: "2025-02-05",
-    status: "COMPLETED",
-    createdAt: "2025-02-01T14:00:00Z",
-    updatedAt: "2025-02-04T16:00:00Z",
-    categories: [{ name: "Personal" }],
-    tags: [{ name: "Errands", color: "green" }],
-    userId: "user3",
-    user: { email: "user3@example.com" },
-  },
-  {
-    id: "4",
-    name: "Finish Reading Book",
-    description:
-      "Complete reading 'The Great Gatsby' for the book club discussion.",
-    dueDate: "2025-02-12",
-    priority: "MEDIUM",
-    status: "PENDING",
-    createdAt: "2025-02-03T11:00:00Z",
-    updatedAt: "2025-02-03T11:00:00Z",
-    categories: [{ name: "Personal" }, { name: "Books" }],
-    tags: [{ name: "Leisure", color: "purple" }],
-    userId: "user4",
-    user: { email: "user4@example.com" },
-  },
-  {
-    id: "5",
-    name: "Submit Timesheet",
-    description: "Fill out and submit your weekly timesheet to HR.",
-    dueDate: "2025-02-08",
-    priority: "HIGH",
-    status: "PENDING",
-    createdAt: "2025-02-02T15:30:00Z",
-    updatedAt: "2025-02-02T15:30:00Z",
-    categories: [{ name: "Work" }],
-    tags: [{ name: "Administrative", color: "yellow" }],
-    userId: "user5",
-    user: { email: "user5@example.com" },
-  },
-];
+import TaskDetail from "./components/TaskDetail";
+import deleteTask from "./api/deleteTask";
+import updateTask from "./api/updateTask";
 
 const Home = () => {
-  const [tasks, setTasks] = useState<TaskListProps>({ tasks: [] });
+  const [tasks, setTasks] = useState<TaskListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCompleted, setShowCompleted] = useState(false);
+  const [detailedTask, setDetailedTask] = useState<TaskListItem | null>(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
-      setLoading(true);
-      // const data = await getTasks();
-      setTasks({ tasks: tasksArray });
-      setLoading(false);
+      try {
+        setLoading(true);
+        const data = await getTasks();
+        setTasks(data);
+      } catch (error) {
+        setLoading(false);
+        console.log(error instanceof Error ? error.message : null);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchTasks();
   }, []);
 
   const filteredTasks = useMemo(() => {
-    return tasks.tasks.filter((task) =>
+    return tasks.filter((task) =>
       showCompleted ? task.status === "COMPLETED" : task.status === "PENDING"
     );
   }, [tasks, showCompleted]);
 
+  const toggleDetails = (task: TaskListItem) => {
+    setDetailedTask(task);
+  };
+
   if (loading) return <Spinner />;
 
   return (
-    <div className="p-8 select-none">
+    <div className="p-8 select-none h-screen overflow-auto">
       <div className="flex flex-col items-center justify-center">
-        <TaskList tasks={filteredTasks} />
-      </div>
-      <div className="mt-3 flex items-center text-[#f88b25]">
-        <p className="font-semibold mr-4">Show completed tasks</p>
-        <i
-          className={`bi ${
-            showCompleted ? "bi-toggle-on" : "bi-toggle-off"
-          } text-4xl cursor-pointer`}
-          onClick={() => setShowCompleted((prev) => !prev)}
-        ></i>
+        {detailedTask ? (
+          <div>
+            <button
+              type="button"
+              className="flex items-center bg-[#f88b25] text-[#292929] px-3 py-2 rounded-lg"
+              onClick={() => setDetailedTask(null)}
+            >
+              <i className="bi bi-arrow-left text-2xl font-extrabold"></i>
+              <span className="font-semibold">Back to list view</span>
+            </button>
+            <TaskDetail task={detailedTask} />
+            <div className="w-full flex justify-center gap-4 py-4 font-semibold">
+              <button
+                className="w-full sm:w-[40%] md:w-[30%] lg:w-[20%] px-6 py-2 bg-[#f88b25] text-[#292929] rounded-lg shadow-md transition-all duration-300 hover:bg-[#e67e22] active:scale-95"
+                onClick={() => updateTask(detailedTask.id, { name: "sas" })}
+              >
+                Mark as Done
+              </button>
+              <button
+                className="w-full sm:w-[40%] md:w-[30%] lg:w-[20%] px-6 py-2 bg-red-500 text-[#292929] rounded-lg shadow-md transition-all duration-300 hover:bg-red-600 active:scale-95"
+                onClick={() => deleteTask(detailedTask.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <TaskList tasks={filteredTasks} toggleDetails={toggleDetails} />
+            <div className="mt-3 flex items-center text-[#f88b25]">
+              <p className="font-semibold mr-4">Show completed tasks</p>
+              <i
+                className={`bi ${
+                  showCompleted ? "bi-toggle-on" : "bi-toggle-off"
+                } text-4xl cursor-pointer`}
+                onClick={() => setShowCompleted((prev) => !prev)}
+              ></i>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

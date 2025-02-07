@@ -1,19 +1,17 @@
 import { TaskItemProps } from "../types/task";
 
-const statusColors: { [key: string]: string } = {
-  PENDING: "bg-yellow-500 text-yellow-900",
-  COMPLETED: "bg-green-500 text-green-900",
-};
-
 const priorityColors: { [key: string]: string } = {
   HIGH: "bg-red-500 text-red-900",
   MEDIUM: "bg-orange-500 text-orange-900",
   LOW: "bg-green-300 text-green-500",
 };
 
-const Task: React.FC<TaskItemProps> = ({ task }) => {
+const Task: React.FC<TaskItemProps> = ({ task, onClick }) => {
   return (
-    <div className="select-none flex items-center justify-between border-2 border-[#5e5e5e] p-5 rounded-md shadow-lg text-[#d7d7d7] font-semibold">
+    <div
+      className="select-none flex items-center justify-between border border-[#4a4a4afd] p-5 rounded-lg shadow-lg text-[#d7d7d7] font-semibold cursor-pointer hover:bg-[#262726]"
+      onClick={() => onClick(task)}
+    >
       <div className="hidden md:flex w-full items-center justify-between">
         <div className="flex flex-col items-start w-1/5">
           <p className="text-sm text-[#a5a5a58f]">Name</p>
@@ -23,17 +21,27 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
         </div>
         <div className="flex flex-col items-start w-1/5">
           <p className="text-sm text-[#a5a5a58f]">Due Date</p>
-          <p className="mt-1">{task.dueDate}</p>
+          <p className="mt-1">
+            {new Date(task.dueDate).toLocaleDateString("en-US", {
+              weekday: "short",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
         </div>
         <div className="flex flex-col items-start w-1/5">
           {task.status !== "COMPLETED" ? (
-            <div
-              className={`px-3 py-1 rounded-md text-xs font-bold ${
-                priorityColors[task.priority!] || "bg-gray-500 text-gray-900"
-              }`}
-            >
-              {task.priority}
-            </div>
+            <>
+              <p className="text-sm text-[#a5a5a58f]">Priority</p>
+              <div
+                className={`mt-1 px-3 py-1 rounded-md text-xs font-bold ${
+                  priorityColors[task.priority!] || "bg-gray-500 text-gray-900"
+                }`}
+              >
+                {task.priority}
+              </div>
+            </>
           ) : (
             <></>
           )}
@@ -63,12 +71,21 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
           </button>
         </div>
       </div>
+      {/**
+       * mobile layout
+       */}
       <div className="flex md:hidden w-full items-center justify-between">
-        <div className="flex flex-col w-2/5">
+        <div className="flex flex-col w-3/5">
           <p className="truncate w-full overflow-hidden whitespace-nowrap">
             {task.name}
           </p>
-          <p className="text-xs text-[#a5a5a58f]">{task.dueDate}</p>
+          <p className="text-xs text-[#a5a5a58f]">
+            {new Date(task.dueDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
         </div>
         {task.status !== "COMPLETED" ? (
           <div
@@ -81,18 +98,6 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
         ) : (
           <></>
         )}
-        <div className="flex space-x-2">
-          {task.status !== "COMPLETED" ? (
-            <button type="button" className="">
-              <i className="bi bi-check-circle cursor-pointer text-2xl"></i>
-            </button>
-          ) : (
-            <></>
-          )}
-          <button type="button" className="">
-            <i className="bi bi-trash cursor-pointer text-2xl"></i>
-          </button>
-        </div>
       </div>
     </div>
   );

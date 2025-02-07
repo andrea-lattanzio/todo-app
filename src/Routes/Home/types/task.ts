@@ -9,14 +9,18 @@ export interface TaskListItem {
   updatedAt: string;
   categories: { name: string }[];
   tags: { name: string; color: string }[];
-  userId: string;
-  user: { email: string };
 }
 
 export interface TaskListProps {
   tasks: TaskListItem[];
+  toggleDetails: (task: TaskListItem) => void;
 }
 
 export interface TaskItemProps {
   task: TaskListItem;
+  onClick: (task: TaskListItem) => void;
+}
+
+export interface TaskDetailProps {
+  task: TaskListItem,
 }

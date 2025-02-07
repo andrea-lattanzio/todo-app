@@ -1,3 +1,16 @@
+interface ErrorData {
+  message: string | string[];
+  error: string;
+  statusCode: number;
+}
+
+const handleError = async (response: Response) => {
+  if (response.status === 401) localStorage.removeItem("authToken");
+  const errorData: ErrorData = await response.json();
+  const errorMessage = Array.isArray(errorData.message) ? errorData.message.join(', ') : errorData.message
+  throw new Error(errorMessage);
+};
+
 const authenticatedFetch = async <T>(
   url: string,
   options: RequestInit = {}
@@ -19,23 +32,14 @@ const authenticatedFetch = async <T>(
     },
   };
 
-  try {
-    const response = await fetch(`${url}`, config);
+  const response = await fetch(`${url}`, config);
 
-    if (response.status === 401) {
-      localStorage.removeItem("authToken");
-      throw new Error("Unauthorized");
-    }
-
-    if (response.status === 400) {
-      throw new Error("Bad request");
-    }
-
-    const data: T = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
+  if (!response.ok) {
+    await handleError(response);
   }
+
+  const data: T = await response.json();
+  return data;
 };
 
 export default authenticatedFetch;

@@ -5,9 +5,14 @@ interface ErrorData {
 }
 
 const handleError = async (response: Response) => {
-  if (response.status === 401) localStorage.removeItem("authToken");
+  if (response.status === 401) {
+    localStorage.removeItem("authToken");
+    window.location.href = "/login";
+  }
   const errorData: ErrorData = await response.json();
-  const errorMessage = Array.isArray(errorData.message) ? errorData.message.join(', ') : errorData.message
+  const errorMessage = Array.isArray(errorData.message)
+    ? errorData.message.join(", ")
+    : errorData.message;
   throw new Error(errorMessage);
 };
 

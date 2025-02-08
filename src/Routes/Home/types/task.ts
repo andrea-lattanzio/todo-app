@@ -12,7 +12,8 @@ export interface TaskListItem {
 }
 
 export interface TaskListProps {
-  tasks: TaskListItem[];
+  filteredTasks: TaskListItem[];
+  showCompleted: boolean;
   toggleDetails: (task: TaskListItem) => void;
 }
 

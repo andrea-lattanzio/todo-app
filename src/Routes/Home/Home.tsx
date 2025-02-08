@@ -1,4 +1,4 @@
-import TaskList from "./components/TaskList";
+import TaskList from "./components/TaskList/TaskList";
 import Spinner from "../../components/Spinner";
 import TaskDetail from "./components/TaskDetail";
 import deleteTask from "./api/deleteTask";
@@ -7,11 +7,12 @@ import useTasks from "./hooks/useTasks";
 import useTaskDetail from "./hooks/useTaskDetail";
 import useFilteredTasks from "./hooks/useFilteredTasks";
 import { useState } from "react";
+import NoTask from "./components/TaskList/NoTask";
 
 const Home = () => {
   const { tasks, loading } = useTasks();
-  const { detailedTask, setDetailedTask, toggleDetails} = useTaskDetail();
-  const [ showCompleted, setShowCompleted ] = useState(false);
+  const { detailedTask, setDetailedTask, toggleDetails } = useTaskDetail();
+  const [showCompleted, setShowCompleted] = useState(false);
   const filteredTasks = useFilteredTasks(tasks, showCompleted);
 
   if (loading) return <Spinner />;
@@ -47,16 +48,26 @@ const Home = () => {
           </div>
         ) : (
           <>
-            <TaskList tasks={filteredTasks} toggleDetails={toggleDetails} />
-            <div className="mt-3 flex items-center text-[#f88b25]">
-              <p className="font-semibold mr-4">Show completed tasks</p>
-              <i
-                className={`bi ${
-                  showCompleted ? "bi-toggle-on" : "bi-toggle-off"
-                } text-4xl cursor-pointer`}
-                onClick={() => setShowCompleted((prev) => !prev)}
-              ></i>
-            </div>
+            {tasks.length > 0 ? (
+              <>
+                <TaskList
+                  filteredTasks={filteredTasks}
+                  toggleDetails={toggleDetails}
+                  showCompleted={showCompleted}
+                />
+                <div className="mt-3 flex items-center text-[#f88b25]">
+                  <p className="font-semibold mr-4">Show completed tasks</p>
+                  <i
+                    className={`bi ${
+                      showCompleted ? "bi-toggle-on" : "bi-toggle-off"
+                    } text-4xl cursor-pointer`}
+                    onClick={() => setShowCompleted((prev) => !prev)}
+                  ></i>
+                </div>
+              </>
+            ) : (
+              <NoTask />
+            )}
           </>
         )}
       </div>
@@ -65,3 +76,5 @@ const Home = () => {
 };
 
 export default Home;
+
+// {tasks.length ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} error={error} />}

@@ -31,8 +31,14 @@ const Register = () => {
   };
 
   return (
-    <div className="pt-32">{loading ? <Spinner /> : <RegisterForm onSubmitForm={onSubmit} error={error} />}</div>
-  )
+    <div className="flex items-center justify-center h-screen w-full">
+      {loading ? (
+        <Spinner />
+      ) : (
+        <RegisterForm onSubmitForm={onSubmit} error={error} />
+      )}
+    </div>
+  );
 };
 
 export default Register;

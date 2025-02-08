@@ -8,6 +8,7 @@
   #root {
     @apply h-full m-0 bg-[#292929];
     padding: 0 !important;
+    overflow: hidden;
   }
 }
 

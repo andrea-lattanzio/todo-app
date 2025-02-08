@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div className="pt-32">
+    <div className="flex items-center justify-center h-screen w-full">
       {loading ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} error={error} />}
     </div>
   );

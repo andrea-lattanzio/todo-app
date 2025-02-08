@@ -39,18 +39,18 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
   return (
     <div
       ref={cardRef} // Attach the ref to the root div
-      className="relative w-full max-w-[300px] bg-[#2c2e2d] rounded-xl shadow-lg border-2 border-[#343434] overflow-hidden"
+      className="relative w-full bg-[#2c2e2d] rounded-xl shadow-lg border-2 border-[#343434] overflow-hidden"
     >
       <div
         className={`flex items-center justify-between p-4 transition-transform duration-300 ${
           isSlid ? "translate-x-[-40%]" : "" // Shift the content left by 80%
         }`}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col w-3/5">
           <h4 className="text-lg font-semibold text-[#fbfbfb]">
             {category.name}
           </h4>
-          <p className="text-sm text-[#d1d1d1]">{category.description}</p>
+          <p className="text-sm text-[#d1d1d1] truncate">{category.description}</p>
         </div>
         
         <button

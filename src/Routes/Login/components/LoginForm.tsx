@@ -19,8 +19,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="w-full max-w-md p-8 space-y-6 rounded-2xl">
+    <div className="flex flex-col sm:w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%]">
+      <div className="space-y-6 rounded-2xl">
         <h2 className="text-3xl font-bold text-center text-white tracking-wider select-none">
           Login
         </h2>

@@ -22,16 +22,12 @@ const Categories = () => {
     }
   };
 
-  return (
-    <div className="p-8 select-none h-[calc(100vh-400px)]">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <CategoryList categories={categories} />
-          <CategoryForm onSubmitForm={onSubmit} error={error} />
-        </>
-      )}
+  return loading ? (
+    <Spinner />
+  ) : (
+    <div className="h-auto overflow-y-scroll">
+      <CategoryList categories={categories} />
+      <CategoryForm onSubmitForm={onSubmit} error={error} />
     </div>
   );
 };

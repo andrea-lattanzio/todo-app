@@ -16,9 +16,9 @@ const Home = () => {
   const filteredTasks = useFilteredTasks(tasks, showCompleted);
 
   if (loading) return <Spinner />;
-
+  
   return (
-    <div className="p-8 select-none overflow-auto h-[calc(100vh-100)]">
+    <div className="select-none overflow-auto h-[calc(100vh-100)]">
       <div className="flex flex-col items-center justify-center">
         {detailedTask ? (
           <div>

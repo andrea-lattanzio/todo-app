@@ -1,4 +1,4 @@
-import { TaskItemProps } from "../types/task";
+import { TaskItemProps } from "../../types/task";
 
 const priorityColors: { [key: string]: string } = {
   HIGH: "bg-red-500 text-red-900",

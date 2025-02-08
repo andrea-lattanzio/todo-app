@@ -10,7 +10,7 @@ const useTasks = () => {
     const fetchTasks = async () => {
       try {
         setLoading(true);
-        const data = await getTasks();
+        const data: TaskListItem[] = await getTasks();
         setTasks(data);
       } catch (error) {
         console.log(error instanceof Error ? error.message : null);

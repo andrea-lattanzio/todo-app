@@ -27,9 +27,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitForm, error }) => {
         <form onSubmit={handleSubmit(onSubmitForm)}>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-white tracking-wide select-none">
-                Email
-              </label>
               <input
                 type="text"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
@@ -43,9 +40,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitForm, error }) => {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-white tracking-wide select-none">
-                Password
-              </label>
               <input
                 type="password"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"

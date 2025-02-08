@@ -1,44 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
 import TaskList from "./components/TaskList";
-import { TaskListItem } from "./types/task";
 import Spinner from "../../components/Spinner";
-import getTasks from "./api/getTasks";
 import TaskDetail from "./components/TaskDetail";
 import deleteTask from "./api/deleteTask";
 import updateTask from "./api/updateTask";
+import useTasks from "./hooks/useTasks";
+import useTaskDetail from "./hooks/useTaskDetail";
+import useFilteredTasks from "./hooks/useFilteredTasks";
+import { useState } from "react";
 
 const Home = () => {
-  const [tasks, setTasks] = useState<TaskListItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [showCompleted, setShowCompleted] = useState(false);
-  const [detailedTask, setDetailedTask] = useState<TaskListItem | null>(null);
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        setLoading(true);
-        const data = await getTasks();
-        setTasks(data);
-      } catch (error) {
-        setLoading(false);
-        console.log(error instanceof Error ? error.message : null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTasks();
-  }, []);
-
-  const filteredTasks = useMemo(() => {
-    return tasks.filter((task) =>
-      showCompleted ? task.status === "COMPLETED" : task.status === "PENDING"
-    );
-  }, [tasks, showCompleted]);
-
-  const toggleDetails = (task: TaskListItem) => {
-    setDetailedTask(task);
-  };
+  const { tasks, loading } = useTasks();
+  const { detailedTask, setDetailedTask, toggleDetails} = useTaskDetail();
+  const [ showCompleted, setShowCompleted ] = useState(false);
+  const filteredTasks = useFilteredTasks(tasks, showCompleted);
 
   if (loading) return <Spinner />;
 

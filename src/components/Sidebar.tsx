@@ -80,7 +80,7 @@ const Sidebar: React.FC = () => {
         </ul>
       </div>
 
-      <div className="fixed bottom-0 left-0 w-full bg-[#3c3d38] text-white p-4 md:hidden">
+      <div className="fixed bottom-0 left-0 w-full bg-[#3c3d38] text-white p-3 md:hidden">
         <ul className="flex justify-around space-x-4">
           <li>
             <NavLink
@@ -93,7 +93,7 @@ const Sidebar: React.FC = () => {
                 return `${baseStyles} ${activeStyles}`;
               }}
             >
-              <i className="bi bi-card-list text-xl"></i>
+              <i className="bi bi-house-fill text-xl"></i>
             </NavLink>
           </li>
           <li>

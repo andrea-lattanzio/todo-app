@@ -43,7 +43,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
     >
       <div
         className={`flex items-center justify-between p-4 transition-transform duration-300 ${
-          isSlid ? "translate-x-[-35%]" : "" // Shift the content left by 80%
+          isSlid ? "translate-x-[-40%]" : "" // Shift the content left by 80%
         }`}
       >
         <div className="flex flex-col">

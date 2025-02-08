@@ -61,24 +61,6 @@ const Sidebar: React.FC = () => {
           </li>
           <li>
             <NavLink
-              to="/tags"
-              className={({ isActive }) => {
-                const baseStyles =
-                  "block py-3 px-4 rounded-lg hover:bg-[#31332e]";
-                const activeStyles = isActive
-                  ? "text-[#ffa552] font-semibold bg-[#31332e]"
-                  : "hover:text-[#fcde9c]";
-                return `${baseStyles} ${activeStyles}`;
-              }}
-            >
-              <div className="flex items-center">
-                <i className="bi bi-tags text-2xl mr-3"></i>
-                <p>Tags</p>
-              </div>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               to="/profile"
               className={({ isActive }) => {
                 const baseStyles =
@@ -140,20 +122,6 @@ const Sidebar: React.FC = () => {
               }}
             >
               <i className="bi bi-folder-fill text-xl"></i>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/tags"
-              className={({ isActive }) => {
-                const baseStyles = "block py-2 px-3 rounded-lg font-semibold";
-                const activeStyles = isActive
-                  ? "text-[#ffa552] font-semibold bg-[#31332e]"
-                  : "";
-                return `${baseStyles} ${activeStyles}`;
-              }}
-            >
-              <i className="bi bi-tags-fill text-xl"></i>
             </NavLink>
           </li>
           <li>

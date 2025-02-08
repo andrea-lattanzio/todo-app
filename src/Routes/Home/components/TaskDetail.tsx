@@ -85,22 +85,6 @@ const TaskDetail: React.FC<TaskDetailProps> = ({ task }) => {
             ))}
           </span>
         </div>
-
-        {/* Task Tags */}
-        <div className="flex flex-col w-full">
-          <label className="text-[#f88b25] font-semibold">Tags</label>
-          <div className="text-[#656565] font-medium mt-2 flex flex-wrap gap-2">
-            {task.tags.map((tag, index) => (
-              <span
-                key={index}
-                className={`font-semibold px-4 py-2 rounded-md bg-[${tag.color}] flex items-center`}
-              >
-                <i className="bi bi-tags-fill mr-2"></i>
-                {tag.name}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

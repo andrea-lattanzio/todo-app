@@ -16,7 +16,6 @@ import Register from "./Routes/Register/Register.tsx";
 import PrivateRoute from "./Routes/PrivateRoute.tsx";
 import AddTask from "./Routes/AddTask/AddTask.tsx";
 import Categories from "./Routes/Categories/Categories.tsx";
-import Tags from "./Routes/Tags/Tags.tsx";
 import Profile from "./Routes/Profile/Profile.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
@@ -62,16 +61,6 @@ const Root = () => {
                     <PrivateRoute>
                       <Suspense fallback={<Spinner />}>
                         <Categories />
-                      </Suspense>
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/tags"
-                  element={
-                    <PrivateRoute>
-                      <Suspense fallback={<Spinner />}>
-                        <Tags />
                       </Suspense>
                     </PrivateRoute>
                   }

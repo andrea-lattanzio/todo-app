@@ -8,7 +8,6 @@ export interface TaskListItem {
   createdAt: string;
   updatedAt: string;
   categories: { name: string }[];
-  tags: { name: string; color: string }[];
 }
 
 export interface TaskListProps {

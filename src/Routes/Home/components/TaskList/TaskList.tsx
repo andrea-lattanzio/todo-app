@@ -1,17 +1,21 @@
-import { NoTaskProps, TaskListProps } from "../../types/task";
-import NoTaskComponent from "./NoTaskComponent";
+import { TaskListProps } from "../../types/task";
+import NoElementComponent, {
+  NoElementProps,
+} from "../../../../components/ui/NoElementComponent";
 import Task from "./Task";
 
-const getMessage = (showCompleted: boolean) : NoTaskProps => {
+const getMessage = (showCompleted: boolean): NoElementProps => {
   return showCompleted
     ? {
-        name: "No completed tasks",
+        elementName: "Task",
+        title: "No completed tasks",
         description: "You have not completed any tasks yet. Keep going!",
         icon: "bi-list-check",
-        showCompleted: true
+        createButton: true,
       }
     : {
-        name: "All tasks completed!",
+        elementName: "Task",
+        title: "All tasks completed!",
         description: "Great job! You have no pending tasks left.",
         icon: "bi-emoji-laughing",
       };
@@ -23,17 +27,18 @@ const TaskList: React.FC<TaskListProps> = ({
   showCompleted,
 }) => {
   if (tasks.length === 0) {
-    const message: NoTaskProps = {
-      name: "No tasks available",
+    const message: NoElementProps = {
+      elementName: "Task",
+      title: "No tasks available",
       description: "Start by adding a new task to stay organized!",
       icon: "bi-journal-plus",
     };
-    return <NoTaskComponent {...message} />;
+    return <NoElementComponent {...message} />;
   }
 
   if (filteredTasks.length === 0) {
     const message = getMessage(showCompleted);
-    return <NoTaskComponent {...message} />;
+    return <NoElementComponent {...message} />;
   }
 
   return (

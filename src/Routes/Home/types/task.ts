@@ -11,16 +11,15 @@ export interface TaskListItem {
 }
 
 export interface TaskListProps {
+  tasks: TaskListItem[];
   filteredTasks: TaskListItem[];
   showCompleted: boolean;
-  toggleDetails: (task: TaskListItem) => void;
 }
 
 export interface TaskItemProps {
   task: TaskListItem;
-  onClick: (task: TaskListItem) => void;
 }
 
 export interface TaskDetailProps {
-  task: TaskListItem,
+  task: TaskListItem;
 }

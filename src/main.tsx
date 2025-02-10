@@ -15,6 +15,7 @@ import AddTask from "./Routes/AddTask/AddTask.tsx";
 import Categories from "./Routes/Categories/Categories.tsx";
 import Profile from "./Routes/Profile/Profile.tsx";
 import Layout from "./components/Layout.tsx";
+import TaskDetail from "./Routes/Home/components/TaskDetail.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
@@ -29,74 +30,76 @@ const Root = () => {
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <div className="">
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route
-                    index
-                    element={
-                      <PrivateRoute>
-                        <Suspense fallback={<Spinner />}>
+              <Suspense fallback={<Spinner />}>
+                <Routes>
+                  <Route path="/" element={<Layout />}>
+                    <Route
+                      index
+                      element={
+                        <PrivateRoute>
                           <Home />
-                        </Suspense>
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    path="/add"
-                    element={
-                      <PrivateRoute>
-                        <Suspense fallback={<Spinner />}>
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/task-detail/:taskId"
+                      element={
+                        <PrivateRoute>
+                          <TaskDetail />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/add"
+                      element={
+                        <PrivateRoute>
                           <AddTask />
-                        </Suspense>
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    path="/categories"
-                    element={
-                      <PrivateRoute>
-                        <Suspense fallback={<Spinner />}>
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/categories"
+                      element={
+                        <PrivateRoute>
                           <Categories />
-                        </Suspense>
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    path="/profile"
-                    element={
-                      <PrivateRoute>
-                        <Suspense fallback={<Spinner />}>
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/profile"
+                      element={
+                        <PrivateRoute>
                           <Profile />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="about"
+                      element={
+                        <Suspense fallback={<Spinner />}>
+                          <About />
                         </Suspense>
-                      </PrivateRoute>
-                    }
-                  />
+                      }
+                    />
+                  </Route>
                   <Route
-                    path="about"
+                    path="login"
                     element={
                       <Suspense fallback={<Spinner />}>
-                        <About />
+                        <Login />
                       </Suspense>
                     }
                   />
-                </Route>
-                <Route
-                  path="login"
-                  element={
-                    <Suspense fallback={<Spinner />}>
-                      <Login />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  path="register"
-                  element={
-                    <Suspense fallback={<Spinner />}>
-                      <Register />
-                    </Suspense>
-                  }
-                />
-              </Routes>
+                  <Route
+                    path="register"
+                    element={
+                      <Suspense fallback={<Spinner />}>
+                        <Register />
+                      </Suspense>
+                    }
+                  />
+                </Routes>
+              </Suspense>
             </div>
           </BrowserRouter>
           <ReactQueryDevtools />

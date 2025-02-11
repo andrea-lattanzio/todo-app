@@ -10,7 +10,7 @@ const Layout = () => {
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">
           <Sidebar />
-          <main className="flex-1 p-5 overflow-auto h-[calc(100vh-16vh)] md:h-auto">
+          <main className="flex-1 p-5 overflow-auto h-[calc(100vh-20vh)] md:h-auto">
             <Outlet />
           </main>
         </div>

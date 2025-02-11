@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { TaskItemProps } from "../../types/task";
 
 const priorityColors: { [key: string]: string } = {
@@ -6,11 +7,13 @@ const priorityColors: { [key: string]: string } = {
   LOW: "bg-green-300 text-green-500",
 };
 
-const Task: React.FC<TaskItemProps> = ({ task, onClick }) => {
+const Task: React.FC<TaskItemProps> = ({ task }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className="select-none flex items-center justify-between border border-[#4a4a4afd] p-5 rounded-lg shadow-lg text-[#d7d7d7] font-semibold cursor-pointer hover:bg-[#262726]"
-      onClick={() => onClick(task)}
+      onClick={() => navigate(`task-detail/${task.id}`)}
     >
       <div className="hidden md:flex w-full items-center justify-between">
         <div className="flex flex-col items-start w-1/5">

@@ -7,7 +7,7 @@ export interface TaskListItem {
   status: "PENDING" | "COMPLETED";
   createdAt: string;
   updatedAt: string;
-  categories: { name: string }[];
+  categories?: { name: string }[];
 }
 
 export interface TaskListProps {

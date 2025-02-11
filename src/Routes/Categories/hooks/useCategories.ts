@@ -5,6 +5,7 @@ const useCategories = () => {
   return useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
+    staleTime: 240000
   });
 };
 

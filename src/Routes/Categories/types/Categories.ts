@@ -8,16 +8,18 @@ export interface Category {
 }
 
 export interface CategoryListProps {
-  categories: Category[] | [];
+  categories: Category[] | undefined;
+  onDelete: (id: string) => void;
 }
 
 export interface CategoryCardProps {
   category: Category;
+  onDelete: (id: string) => void;
 }
 
 export interface TooltipProps {
   message: string;
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const categorySchema = z.object({
@@ -29,5 +31,5 @@ export type CategoryFormSchema = z.infer<typeof categorySchema>;
 
 export interface CategoryFormProps {
   onSubmitForm: (data: CategoryFormSchema) => void;
-  error: string | null;
+  error: string | undefined;
 }

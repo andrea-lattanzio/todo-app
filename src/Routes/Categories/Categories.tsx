@@ -1,33 +1,31 @@
-import { useState } from "react";
+import Spinner from "../../components/Spinner";
+import deleteCategory from "./api/deleteCategory";
+import addCategory from "./api/postCategory";
 import CategoryForm from "./components/CategoryForm";
 import CategoryList from "./components/CategoryList/CategoryList";
 import useCategories from "./hooks/useCategories";
 import { CategoryFormSchema } from "./types/Categories";
-import addCategory from "./api/postCategory";
-import Spinner from "../../components/Spinner";
 
 const Categories = () => {
-  const { categories } = useCategories();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data, refetch, isLoading } = useCategories();
 
-  const onSubmit = async (data: CategoryFormSchema) => {
-    try {
-      setLoading(true);
-      await addCategory(data);
-    } catch (err) {
-      if (err instanceof Error) setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+  const handleSubmit = async (newCategory: CategoryFormSchema) => {
+    await addCategory(newCategory);
+    refetch();
   };
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  const handleDelete = async (categoryId: string) => {
+    await deleteCategory(categoryId);
+    refetch();
+  }
+
+  if (isLoading) return <Spinner />;
+  if (!data) return;
+
+  return (
     <div className="h-auto overflow-y-scroll">
-      <CategoryList categories={categories} />
-      <CategoryForm onSubmitForm={onSubmit} error={error} />
+      <CategoryList categories={data} onDelete={handleDelete} />
+      <CategoryForm onSubmitForm={handleSubmit} error={""} />
     </div>
   );
 };

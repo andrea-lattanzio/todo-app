@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { TaskItemProps } from "../../types/task";
-
-const priorityColors: { [key: string]: string } = {
-  HIGH: "bg-red-500 text-red-900",
-  MEDIUM: "bg-orange-500 text-orange-900",
-  LOW: "bg-green-300 text-green-500",
-};
+import { priorityColors, statusColors } from "../../../../components/ui/taskColors";
 
 const Task: React.FC<TaskItemProps> = ({ task }) => {
   const navigate = useNavigate();
@@ -51,7 +46,11 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
         </div>
         <div className="flex flex-col items-start w-1/5">
           <p className="text-sm text-[#a5a5a58f]">Status</p>
-          <div className="mt-1 px-3 py-1 rounded-md text-xs font-bold bg-gray-700">
+          <div
+            className={`mt-1 px-3 py-1 rounded-md text-xs font-bold   ${
+              statusColors[task.status!] || "bg-gray-500 text-gray-900"
+            }`}
+          >
             {task.status}
           </div>
         </div>

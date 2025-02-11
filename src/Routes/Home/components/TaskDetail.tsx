@@ -40,29 +40,27 @@ const TaskDetail = () => {
         <span>Back</span>
       </button>
       <div className="select-none mt-3 h-auto w-full bg-[#2c2e2d] p-6 rounded-xl shadow-lg border-2 border-[#343434]">
-        <div className="flex flex-col">
-          <h2 className="font-semibold text-[#6b7280] text-xl">Task Detail</h2>
-          <button className="mt-2 flex items-center justify-center py-2 pr-4 bg-[#697565] text-gray-800 rounded-lg space-x-2 md:w-1/6 w-1/3 transition-all duration-300 hover:bg-[#5a6456] active:scale-95">
+        <div className="flex items-center justify-between">
+          <h2 className="font-semibold text-[#6b7280] text-2xl">Task Details</h2>
+          <button className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95">
             <i className="bi bi-pencil text-xl"></i>
-            <span className="font-semibold text-lg">Edit</span>
           </button>
         </div>
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           <div className="flex flex-col">
-            <label className="text-gray-300 font-semibold">Task Name</label>
-            <span className="mt-2 text-[#656567] font-medium">{task.name}</span>
+            <label className="text-[#656567]  font-semibold">Task Name</label>
+            <span className="mt-2 text-gray-400 font-medium">{task.name}</span>
           </div>
-
           {/* Task Description */}
           <div className="flex flex-col">
-            <label className="text-gray-300 font-semibold">Description</label>
-            <span className="mt-2 text-[#656567]">{task.description}</span>
+            <label className="text-[#656567]  font-semibold">Description</label>
+            <span className="mt-2 text-gray-400">{task.description}</span>
           </div>
 
           {/* Task Due Date */}
           <div className="flex flex-col">
-            <label className="text-gray-300 fontfont-semibold">Due Date</label>
-            <span className="mt-2 text-[#656567] font-medium">
+            <label className="text-[#656567]  fontfont-semibold">Due Date</label>
+            <span className="mt-2 text-gray-400 font-medium">
               {new Date(task.dueDate).toLocaleDateString("en-US", {
                 weekday: "short",
                 year: "numeric",
@@ -75,7 +73,7 @@ const TaskDetail = () => {
           {/* Task Priority */}
           {task.status !== "COMPLETED" && (
             <div className="flex flex-col w-fit">
-              <label className="font-semibold text-gray-300">Priority</label>
+              <label className="font-semibold text-[#656567] ">Priority</label>
               <span
                 className={`mt-2 font-semibold px-2 py-1 rounded-md ${
                   priorityColors[task.priority!] || "bg-gray-500 text-gray-900"
@@ -88,7 +86,7 @@ const TaskDetail = () => {
 
           {/* Task Status */}
           <div className="flex flex-col w-fit">
-            <label className="text-gray-300 font-semibold">Status</label>
+            <label className="text-[#656567]  font-semibold">Status</label>
             <span
               className={`mt-2 font-semibold px-2 py-1 rounded-md ${
                 statusColors[task.status!] || "bg-gray-500 text-gray-900"
@@ -101,8 +99,8 @@ const TaskDetail = () => {
           {/* Task Categories */}
           {task.categories!.length > 0 && (
             <div className="flex flex-col">
-              <label className="text-gray-300 font-semibold">Categories</label>
-              <span className="mt-2 text-[#656567] font-medium">
+              <label className="text-[#656567]  font-semibold">Categories</label>
+              <span className="mt-2 text-gray-400 font-medium">
                 {task.categories!.map((cat, index) => (
                   <span key={index}>
                     {cat.name}

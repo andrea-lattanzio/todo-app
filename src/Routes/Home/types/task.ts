@@ -14,10 +14,12 @@ export interface TaskListProps {
   tasks: TaskListItem[];
   filteredTasks: TaskListItem[];
   showCompleted: boolean;
+  refetch: () => void;
 }
 
 export interface TaskItemProps {
   task: TaskListItem;
+  refetch: () => void;
 }
 
 export interface TaskDetailProps {

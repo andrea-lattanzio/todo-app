@@ -1,10 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { TaskItemProps } from "../../types/task";
-import { priorityColors, statusColors } from "../../../../components/ui/taskColors";
+import {
+  priorityColors,
+  statusColors,
+} from "../../../../components/ui/taskColors";
+import { useTaskMutations } from "../../hooks/useTaskMutations";
+import Spinner from "../../../../components/Spinner";
 
 const Task: React.FC<TaskItemProps> = ({ task }) => {
   const navigate = useNavigate();
+  const { updateTaskMutation, deleteTaskMutation } = useTaskMutations(task.id);
 
+  if (updateTaskMutation.isPending || deleteTaskMutation.isPending)
+    return <Spinner />;
   return (
     <div
       className="select-none flex items-center justify-between border border-[#4a4a4afd] p-5 rounded-lg shadow-lg text-[#d7d7d7] font-semibold cursor-pointer hover:bg-[#262726]"
@@ -59,6 +67,7 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
             <button
               type="button"
               className="hover:text-gray-400 transition duration-300"
+              onClick={() => updateTaskMutation.mutate()}
             >
               <i className="bi bi-check-circle cursor-pointer text-2xl"></i>
             </button>
@@ -68,6 +77,7 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
           <button
             type="button"
             className="hover:text-gray-400 transition duration-300"
+            onClick={() => deleteTaskMutation.mutate()}
           >
             <i className="bi bi-trash cursor-pointer text-2xl"></i>
           </button>

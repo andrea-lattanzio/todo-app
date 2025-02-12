@@ -4,7 +4,7 @@ import useTasks from "./hooks/useTasks";
 import { useMemo, useState } from "react";
 
 const Home = () => {
-  const { data, isLoading } = useTasks();
+  const { data, isLoading, refetch } = useTasks();
   const [showCompleted, setShowCompleted] = useState(false);
 
   const filteredTasks = useMemo(() => {
@@ -15,6 +15,10 @@ const Home = () => {
         : task.status === "PENDING";
     });
   }, [data, showCompleted]);
+
+  const handleMutation = () => {
+    refetch();
+  }
 
   if (!data) return;
   if (isLoading) return <Spinner />;
@@ -27,6 +31,7 @@ const Home = () => {
             tasks={data}
             filteredTasks={filteredTasks}
             showCompleted={showCompleted}
+            refetch={refetch}
           />
         </div>
         {data.length > 0 && (

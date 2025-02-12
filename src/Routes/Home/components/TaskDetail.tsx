@@ -1,58 +1,44 @@
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TaskListItem } from "../types/task";
-import getTaskById from "../api/getTaskById";
 import Spinner from "../../../components/Spinner";
 import {
   priorityColors,
   statusColors,
 } from "../../../components/ui/taskColors";
+import useTask from "../hooks/useTask";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import deleteTask from "../api/deleteTask";
 import updateTask from "../api/updateTask";
 
 const TaskDetail = () => {
   const { taskId } = useParams();
-  const [task, setTask] = useState<TaskListItem>();
-  const [loading, setLoading] = useState(false);
+  if (!taskId) return;
+
+  const { data: task, isLoading } = useTask(taskId);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const getTask = async (taskId: string) => {
-    try {
-      setLoading(true);
-      const data: TaskListItem = await getTaskById(taskId);
-      setTask(data);
-    } catch (err) {
+  const updateTaskMutation = useMutation({
+    mutationFn: (updatedData: { status: "COMPLETED" }) =>
+      updateTask(taskId!, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"]});
       navigate("/");
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+  });
 
-  const handleClick = async (deleting?: boolean) => {
-    if (!task) return;
-    try {
-      setLoading(true);
-      deleting
-        ? await deleteTask(task.id)
-        : updateTask(task.id, { status: "COMPLETED" });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
+  const deleteTaskMutation =  useMutation({
+    mutationFn: () => deleteTask(taskId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"]});
       navigate("/");
     }
-  };
+  });
 
-  useEffect(() => {
-    if (!taskId) return;
-    getTask(taskId);
-  }, []);
 
-  if (!task) return;
+  if(!task) return;
+  if(isLoading) return <Spinner />;
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       <div className="flex items-center justify-between">
         <button
@@ -146,14 +132,14 @@ const TaskDetail = () => {
         {task.status !== "COMPLETED" && (
           <button
             className="text-center lg:w-60 w-full py-2 bg-[#697565] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
-            onClick={() => handleClick()}
+            onClick={() => updateTaskMutation}
           >
             Mark as completed
           </button>
         )}
         <button
           className="text-center lg:w-60 w-full py-2 bg-[#f88b25] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#e67e22] active:scale-95"
-          onClick={() => handleClick(true)}
+          onClick={() => deleteTaskMutation}
         >
           Delete
         </button>

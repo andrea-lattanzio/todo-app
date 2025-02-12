@@ -1,14 +1,13 @@
-import { StrictMode, useState } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import React, { Suspense } from "react";
 import Spinner from "./components/Spinner.tsx";
 import Login from "./Routes/Login/Login.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AuthContext } from "./context/auth.context.ts";
-import { User } from "./Routes/Login/types/login.types.ts";
+import AuthProvider from "./context/auth.context.tsx";
 import Register from "./Routes/Register/Register.tsx";
 import PrivateRoute from "./Routes/PrivateRoute.tsx";
 import AddTask from "./Routes/AddTask/AddTask.tsx";
@@ -21,90 +20,98 @@ const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
 const queryClient = new QueryClient();
 
-const Root = () => {
-  const [user, setUser] = useState<User | null>(null);
+// Helper component to check the location and conditionally render AuthProvider
+const AuthProviderWrapper = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
 
+  // Do not wrap with AuthProvider on login or register routes
+  if (location.pathname === "/login" || location.pathname === "/register") {
+    return <>{children}</>;
+  }
+
+  return <AuthProvider>{children}</AuthProvider>;
+};
+
+const Root = () => {
   return (
     <StrictMode>
-      <AuthContext.Provider value={{ user, setUser }}>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <div className="">
-              <Suspense fallback={<Spinner />}>
-                <Routes>
-                  <Route path="/" element={<Layout />}>
-                    <Route
-                      index
-                      element={
-                        <PrivateRoute>
-                          <Home />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="/task-detail/:taskId"
-                      element={
-                        <PrivateRoute>
-                          <TaskDetail />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="/add"
-                      element={
-                        <PrivateRoute>
-                          <AddTask />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="/categories"
-                      element={
-                        <PrivateRoute>
-                          <Categories />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="/profile"
-                      element={
-                        <PrivateRoute>
-                          <Profile />
-                        </PrivateRoute>
-                      }
-                    />
-                    <Route
-                      path="about"
-                      element={
-                        <Suspense fallback={<Spinner />}>
-                          <About />
-                        </Suspense>
-                      }
-                    />
-                  </Route>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Suspense fallback={<Spinner />}>
+            <AuthProviderWrapper>
+              <Routes>
+                <Route
+                  path="login"
+                  element={
+                    <Suspense fallback={<Spinner />}>
+                      <Login />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="register"
+                  element={
+                    <Suspense fallback={<Spinner />}>
+                      <Register />
+                    </Suspense>
+                  }
+                />
+                <Route path="/" element={<Layout />}>
                   <Route
-                    path="login"
+                    index
                     element={
-                      <Suspense fallback={<Spinner />}>
-                        <Login />
-                      </Suspense>
+                      <PrivateRoute>
+                        <Home />
+                      </PrivateRoute>
                     }
                   />
                   <Route
-                    path="register"
+                    path="/task-detail/:taskId"
+                    element={
+                      <PrivateRoute>
+                        <TaskDetail />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/add"
+                    element={
+                      <PrivateRoute>
+                        <AddTask />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/categories"
+                    element={
+                      <PrivateRoute>
+                        <Categories />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/profile"
+                    element={
+                      <PrivateRoute>
+                        <Profile />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="about"
                     element={
                       <Suspense fallback={<Spinner />}>
-                        <Register />
+                        <About />
                       </Suspense>
                     }
                   />
-                </Routes>
-              </Suspense>
-            </div>
-          </BrowserRouter>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </AuthContext.Provider>
+                </Route>
+              </Routes>
+            </AuthProviderWrapper>
+          </Suspense>
+        </BrowserRouter>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </StrictMode>
   );
 };

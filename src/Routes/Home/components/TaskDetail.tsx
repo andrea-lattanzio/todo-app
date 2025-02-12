@@ -5,38 +5,18 @@ import {
   statusColors,
 } from "../../../components/ui/taskColors";
 import useTask from "../hooks/useTask";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import deleteTask from "../api/deleteTask";
-import updateTask from "../api/updateTask";
+import { useTaskMutations } from "../hooks/useTaskMutations";
 
 const TaskDetail = () => {
   const { taskId } = useParams();
   if (!taskId) return;
-
   const { data: task, isLoading } = useTask(taskId);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const { updateTaskMutation, deleteTaskMutation } = useTaskMutations(taskId);
 
-  const updateTaskMutation = useMutation({
-    mutationFn: (updatedData: { status: "COMPLETED" }) =>
-      updateTask(taskId!, updatedData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"]});
-      navigate("/");
-    },
-  });
-
-  const deleteTaskMutation =  useMutation({
-    mutationFn: () => deleteTask(taskId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"]});
-      navigate("/");
-    }
-  });
-
-
-  if(!task) return;
-  if(isLoading) return <Spinner />;
+  if (!task) return;
+  if (isLoading || updateTaskMutation.isPending || deleteTaskMutation.isPending)
+    return <Spinner />;
 
   return (
     <>
@@ -132,14 +112,14 @@ const TaskDetail = () => {
         {task.status !== "COMPLETED" && (
           <button
             className="text-center lg:w-60 w-full py-2 bg-[#697565] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
-            onClick={() => updateTaskMutation}
+            onClick={() => updateTaskMutation.mutate()}
           >
             Mark as completed
           </button>
         )}
         <button
           className="text-center lg:w-60 w-full py-2 bg-[#f88b25] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#e67e22] active:scale-95"
-          onClick={() => deleteTaskMutation}
+          onClick={() => deleteTaskMutation.mutate()}
         >
           Delete
         </button>

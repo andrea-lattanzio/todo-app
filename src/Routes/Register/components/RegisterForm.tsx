@@ -31,6 +31,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitForm, error }) => {
                 type="text"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
                 placeholder="E-mail"
+                autoComplete="off"
                 {...register("email")}
               />
               {errors.email && (
@@ -44,6 +45,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmitForm, error }) => {
                 type="password"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
                 placeholder="Password"
+                autoComplete="off"
                 {...register("password")}
               />
               {errors.password && (

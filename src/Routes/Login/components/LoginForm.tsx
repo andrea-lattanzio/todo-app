@@ -29,6 +29,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
             <div>
               <input
                 type="text"
+                autoComplete="off"
                 className="w-full px-4 py-2 mt-1 rounded-lg focus:ring-2 focus:ring-[#FB8B24] focus:outline-none bg-[#686c628b] text-[#9ca3b0]"
                 placeholder="E-mail"
                 {...register("email")}

@@ -30,8 +30,10 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ onSubmitForm, error }) => {
           <input
             type="text"
             placeholder="Category name"
+            autoComplete="off"
             className="w-full p-3 rounded-lg bg-[#3a3a3a] text-[#fbfbfb] border border-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#f88b25]"
             {...register("name")}
+            maxLength={10}
           />
           {errors.name && (
             <FormError message={errors.name.message ?? "Name is not valid"} />
@@ -46,6 +48,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ onSubmitForm, error }) => {
             placeholder="Enter category description"
             className="w-full p-3 rounded-lg bg-[#3a3a3a] text-[#fbfbfb] border border-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#f88b25] resize-none h-24"
             {...register("description")}
+            maxLength={50}
           ></textarea>
           {errors.description && (
             <FormError

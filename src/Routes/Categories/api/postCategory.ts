@@ -1,4 +1,5 @@
 import authenticatedFetch from "../../../utils/auth.wrapper";
+import { Category } from "../types/Categories";
 
 interface AddCategoryDto {
   name: string;
@@ -6,7 +7,7 @@ interface AddCategoryDto {
 }
 
 export default async function addCategory(body: AddCategoryDto) {
-  return authenticatedFetch("/api/category", {
+  return await authenticatedFetch<Category>("/api/category", {
     method: "POST",
     body: JSON.stringify(body),
   });

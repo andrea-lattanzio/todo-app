@@ -54,21 +54,23 @@ const TaskDetail = () => {
     <Spinner />
   ) : (
     <>
-      <button
-        className="select-none flex items-center justify-center space-x-2 md:w-1/6 w-1/3 py-2 pr-4 rounded-lg bg-[#f88b25] text-gray-800 font-semibold transition-all duration-300 hover:bg-[#e67e22] active:scale-95"
-        onClick={() => navigate("/")}
-      >
-        <i className="bi bi-arrow-left text-xl"></i>
-        <span>Back</span>
-      </button>
+      <div className="flex items-center justify-between">
+        <button
+          className="select-none flex items-center justify-center space-x-2 md:w-1/6 w-1/3 py-2 pr-4 rounded-lg bg-[#f88b25] text-gray-800 font-semibold transition-all duration-300 hover:bg-[#e67e22] active:scale-95"
+          onClick={() => navigate("/")}
+        >
+          <i className="bi bi-arrow-left text-xl"></i>
+          <span>Back</span>
+        </button>
+        <button className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95">
+          <i className="bi bi-pencil text-xl"></i>
+        </button>
+      </div>
       <div className="select-none mt-3 h-auto w-full bg-[#2c2e2d] p-6 rounded-xl shadow-lg border-2 border-[#343434]">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-[#6b7280] text-2xl">
             Task Details
           </h2>
-          <button className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95">
-            <i className="bi bi-pencil text-xl"></i>
-          </button>
         </div>
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           <div className="flex flex-col">

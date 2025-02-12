@@ -3,8 +3,8 @@ import login from "./api/login";
 import LoginForm from "./components/LoginForm";
 import { LoginFormSchema, LoginResponse } from "./types/login.types";
 import Spinner from "../../components/Spinner";
-import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/auth.context";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -29,9 +29,11 @@ const Login = () => {
     }
   };
 
+  if (loading) return <Spinner />;
+
   return (
-    <div className="flex items-center justify-center h-screen w-full">
-      {loading ? <Spinner /> : <LoginForm onSubmitForm={onSubmit} error={error} />}
+    <div className="flex items-center justify-center h-full w-full">
+      <LoginForm onSubmitForm={onSubmit} error={error} />
     </div>
   );
 };

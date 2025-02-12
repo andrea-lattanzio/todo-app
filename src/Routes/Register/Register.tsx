@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/auth.context";
 import { useNavigate } from "react-router-dom";
 import { LoginResponse } from "../Login/types/login.types";
 import { RegisterFormSchema } from "./types/register.types";
 import register from "./api/register";
 import Spinner from "../../components/Spinner";
 import RegisterForm from "./components/RegisterForm";
+import { AuthContext } from "../../context/auth.context";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);

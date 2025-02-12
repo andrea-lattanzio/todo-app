@@ -19,7 +19,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
   });
 
   return (
-    <div className="flex flex-col sm:w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%]">
+    <div className="flex flex-col justify-center w-60 md:w-80 xl:w-70 min-h-screen">
       <div className="space-y-6 rounded-2xl">
         <h2 className="text-3xl font-bold text-center text-white tracking-wider select-none">
           Login
@@ -59,7 +59,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
             >
               Sign In
             </button>
-            {error && <FormError message={error} />}
           </div>
         </form>
         <p className="text-sm text-center text-white tracking-wide select-none">
@@ -68,6 +67,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm, error }) => {
             Sign up
           </NavLink>
         </p>
+        {error && <FormError message={error} />}
       </div>
     </div>
   );

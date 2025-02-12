@@ -14,8 +14,7 @@ const TaskDetail = () => {
   const navigate = useNavigate();
   const { updateTaskMutation, deleteTaskMutation } = useTaskMutations(taskId);
 
-  if (!task) return;
-  if (isLoading || updateTaskMutation.isPending || deleteTaskMutation.isPending)
+  if (!task || isLoading || updateTaskMutation.isPending || deleteTaskMutation.isPending)
     return <Spinner />;
 
   return (

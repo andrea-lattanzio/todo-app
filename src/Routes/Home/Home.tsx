@@ -16,12 +16,7 @@ const Home = () => {
     });
   }, [data, showCompleted]);
 
-  const handleMutation = () => {
-    refetch();
-  }
-
-  if (!data) return;
-  if (isLoading) return <Spinner />;
+  if (!data || isLoading) return <Spinner />;
 
   return (
     <div className="select-none overflow-auto h-[calc(100vh-100)]">

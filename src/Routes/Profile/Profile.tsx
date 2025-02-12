@@ -41,7 +41,7 @@ const Profile = () => {
       <div className="flex items-center justify-center">
         <button
           onClick={() => handleLogout()}
-          className="mt-5 bg-red-500 text-white px-4 py-2 rounded-lg text-xl tracking-wide font-semibold hover:bg-red-600 transition"
+          className="mt-5 w-full md:w-60 bg-red-500 text-white px-4 py-2 rounded-lg text-xl tracking-wide font-semibold hover:bg-red-600 transition"
         >
           Sign out
         </button>

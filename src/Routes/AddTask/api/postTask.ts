@@ -1,9 +1,15 @@
 import authenticatedFetch from "../../../utils/auth.wrapper";
 
-export interface AddTaskDto {}
+export interface AddTaskDto {
+  name: string;
+  description: string;
+  dueDate: string;
+  priority: string;
+  categories?: string[];
+}
 
-export default async function addTask(body: AddTaskDto) {
-  return await authenticatedFetch("/task", {
+export async function addTask(body: AddTaskDto) {
+  return await authenticatedFetch("/api/task", {
     method: "POST",
     body: JSON.stringify(body),
   });

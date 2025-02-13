@@ -1,20 +1,33 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "../../../components/Spinner";
-import { priorityColors } from "../../../components/ui/taskColors";
 import useCategories from "../../Categories/hooks/useCategories";
-import { TaskFormProps } from "../types/taskForm";
+import { TaskFormProps, TaskFormSchema, taskSchema } from "../types/taskForm";
 import CustomRadio from "./CustomRadio";
+import { Controller, useForm } from "react-hook-form";
+import { priorityColors } from "../../../components/ui/taskColors";
+import FormError from "../../../components/ui/forms/Form.error";
+
+const priorities = [{id: "1", name: "LOW"}, {id: "2", name: "MEDIUM"}, {id: "3", name: "HIGH"}]
 
 const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
+    const {
+      register,
+      handleSubmit,
+      control,
+      formState: { errors },
+    } = useForm<TaskFormSchema>({
+      resolver: zodResolver(taskSchema),
+      mode: "onChange",
+    });
   const { data: categories, isLoading } = useCategories();
 
-  console.log(error);
   if (!categories || isLoading) return <Spinner />;
 
   return (
     <>
       <div className="select-none h-auto w-full bg-[#2c2e2d] p-4 rounded-xl shadow-lg border-2 border-[#343434] overflow-y-auto">
         <h2 className="text-2xl font-semibold text-white mb-4">New task</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmitForm)}>
           {/* Task Name */}
           <div>
             <label className="block text-gray-400 font-medium">Task Name</label>
@@ -22,8 +35,15 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
               type="text"
               maxLength={50}
               className="mt-2 w-full p-3 rounded-lg bg-[#3a3a3a] text-[#fbfbfb] border border-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#f88b25]"
-              placeholder="Enter task name"
+              placeholder="Task name"
+              autoComplete="off"
+              {...register("name")}
             />
+            {errors.name && (
+                <FormError
+                  message={errors.name.message ?? "Name is not valid"}
+                />
+              )}
           </div>
 
           {/* Description */}
@@ -33,9 +53,15 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
             </label>
             <textarea
               className="resize-none select-all mt-2 w-full p-3 rounded-lg bg-[#3a3a3a] text-[#fbfbfb] border border-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#f88b25]"
-              placeholder="Enter task description"
+              placeholder="Task description"
               maxLength={100}
+              {...register("description")}
             />
+            {errors.description && (
+                <FormError
+                  message={errors.description.message ?? "Description is not valid"}
+                />
+              )}
           </div>
 
           {/* Due Date */}
@@ -44,7 +70,13 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
             <input
               type="date"
               className="mt-2 w-full p-3 rounded-lg bg-[#3a3a3a] text-[#fbfbfb] border border-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#f88b25]"
+              {...register("dueDate")}
             />
+            {errors.dueDate && (
+                <FormError
+                  message={errors.dueDate.message ?? "Due date is not valid"}
+                />
+              )}
           </div>
 
           {/* Priority */}
@@ -52,30 +84,51 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
             <label className="block text-gray-400 font-medium">
               Priority
             </label>
-            <CustomRadio
-              options={["LOW", "MEDIUM", "HIGH"]}
-              colors={priorityColors}
-              onChange={(value) => console.log(value)}
-            />
+            <Controller 
+                name="priority"
+                control={control}
+                render={({field}) => (
+                  <CustomRadio
+                    options={priorities}
+                    colors={priorityColors}
+                    returnField="name"
+                    onChange={field.onChange}
+                  />
+                )}/>
+                {errors.priority && (
+                <FormError
+                  message={errors.priority.message ?? "priority is not valid"}
+                />
+              )}
           </div>
             {/* Categories (Dropdown with max 3 selections) */}
           <div>
           <label className="block text-gray-400 font-medium">Categories</label>
           <span className="text-xs text-gray-400">select up to three</span>
-            <CustomRadio
-              options={categories.map((category) => category.name)}
-              maxSelect={3}
-              onChange={(value) => console.log(value)}
-            />
+          <Controller 
+                name="categories"
+                control={control}
+                render={({field}) => (
+                  <CustomRadio
+                    options={categories}
+                    maxSelect={3}
+                    onChange={field.onChange}
+                  />
+                )}/>
+                {errors.categories && (
+                <FormError
+                  message={errors.categories.message ?? "E-mail is not valid"}
+                />
+              )}
           </div>
+          <button
+            type="submit"
+            className="mt-3 w-full py-2 bg-orange-500 text-white font-semibold rounded-md shadow-md transition active:scale-95"
+          >
+            Save Task
+          </button>
         </form>
       </div>
-      <button
-        type="submit"
-        className="mt-3 w-full py-2 bg-orange-500 text-white font-semibold rounded-md shadow-md hover:bg-orange-600 transition active:scale-95"
-      >
-        Save Task
-      </button>
     </>
   );
 };

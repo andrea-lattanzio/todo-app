@@ -6,15 +6,34 @@ export interface TaskFormProps {
 }
 
 export const taskSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  description: z.string().min(5, "Description must be at least 5 characters"),
+  name: z.string().nonempty(),
+  description: z.string().nonempty(),
+  dueDate: z
+    .string()
+    .refine((value) => !isNaN(Date.parse(value)), {
+      message: "Invalid date format",
+    })
+    .transform((value) => new Date(value))
+    .refine((date) => date >= new Date(), {
+      message: "Due date must be today or in the future",
+    })
+    .transform((value) => new Date(value).toISOString()),
+  priority: z.array(z.string()),
+  categories: z.array(z.string()).optional(),
 });
 
 export type TaskFormSchema = z.infer<typeof taskSchema>;
 
+export interface Option {
+  id: string;
+  name: string;
+  description?: string;
+}
+
 export interface CustomRadioProps {
-  options: string[];
+  options: Option[];
   maxSelect?: number;
   colors?: { [key: string]: string };
+  returnField?: keyof Option;
   onChange: (option: string[] | null) => void;
 }

@@ -3,9 +3,8 @@ import TaskForm from "./components/TaskForm";
 import { TaskFormSchema } from "./types/taskForm";
 
 const AddTask = () => {
-
   const handleSubmit = async (newTask: TaskFormSchema) => {
-    await addTask(newTask);
+    console.log(newTask.dueDate);
   };
 
   return (

@@ -12,9 +12,9 @@ const TaskDetail = () => {
   if (!taskId) return;
   const { data: task, isLoading } = useTask(taskId);
   const navigate = useNavigate();
-  const { updateTaskMutation, deleteTaskMutation } = useTaskMutations(taskId);
+  const { completeTaskMutation, deleteTaskMutation } = useTaskMutations(taskId);
 
-  if (!task || isLoading || updateTaskMutation.isPending || deleteTaskMutation.isPending)
+  if (!task || isLoading || completeTaskMutation.isPending || deleteTaskMutation.isPending)
     return <Spinner />;
 
   return (
@@ -111,7 +111,7 @@ const TaskDetail = () => {
         {task.status !== "COMPLETED" && (
           <button
             className="text-center lg:w-60 w-full py-2 bg-[#697565] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
-            onClick={() => updateTaskMutation.mutate()}
+            onClick={() => completeTaskMutation.mutate()}
           >
             Mark as completed
           </button>

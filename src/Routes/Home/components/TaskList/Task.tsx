@@ -9,9 +9,9 @@ import Spinner from "../../../../components/Spinner";
 
 const Task: React.FC<TaskItemProps> = ({ task }) => {
   const navigate = useNavigate();
-  const { updateTaskMutation, deleteTaskMutation } = useTaskMutations(task.id);
+  const { completeTaskMutation, deleteTaskMutation } = useTaskMutations(task.id);
 
-  if (updateTaskMutation.isPending || deleteTaskMutation.isPending)
+  if (completeTaskMutation.isPending || deleteTaskMutation.isPending)
     return <Spinner />;
   return (
     <div
@@ -67,7 +67,7 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
             <button
               type="button"
               className="hover:text-gray-400 transition duration-300"
-              onClick={() => updateTaskMutation.mutate()}
+              onClick={() => completeTaskMutation.mutate()}
             >
               <i className="bi bi-check-circle cursor-pointer text-2xl"></i>
             </button>

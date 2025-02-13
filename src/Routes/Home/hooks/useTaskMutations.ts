@@ -7,11 +7,12 @@ export const useTaskMutations = (taskId: string) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const updateTaskMutation = useMutation({
+  const completeTaskMutation = useMutation({
     mutationFn: () =>
       updateTask(taskId, {status: "COMPLETED"}),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
       navigate("/");
     },
   });
@@ -20,9 +21,10 @@ export const useTaskMutations = (taskId: string) => {
     mutationFn: () => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
       navigate("/");
     },
   });
 
-  return { updateTaskMutation, deleteTaskMutation };
+  return { completeTaskMutation, deleteTaskMutation };
 };

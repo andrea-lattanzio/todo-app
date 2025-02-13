@@ -101,8 +101,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
                 />
               )}
           </div>
-            {/* Categories (Dropdown with max 3 selections) */}
-          <div>
+          {/* Categories (Dropdown with max 3 selections) */}
+          { categories.length > 0 ? (<div>
           <label className="block text-gray-400 font-medium">Categories</label>
           <span className="text-xs text-gray-400">select up to three</span>
           <Controller 
@@ -120,10 +120,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmitForm, error }) => {
                   message={errors.categories.message ?? "E-mail is not valid"}
                 />
               )}
-          </div>
+          </div>) : null }
           <button
             type="submit"
-            className="mt-3 w-full py-2 bg-orange-500 text-white font-semibold rounded-md shadow-md transition active:scale-95"
+            className="text-gray-800 mt-3 w-full py-2 bg-[#f88b25] font-semibold rounded-md shadow-md transition active:scale-95"
           >
             Save Task
           </button>

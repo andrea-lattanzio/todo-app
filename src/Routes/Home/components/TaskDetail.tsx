@@ -14,7 +14,12 @@ const TaskDetail = () => {
   const navigate = useNavigate();
   const { completeTaskMutation, deleteTaskMutation } = useTaskMutations(taskId);
 
-  if (!task || isLoading || completeTaskMutation.isPending || deleteTaskMutation.isPending)
+  if (
+    !task ||
+    isLoading ||
+    completeTaskMutation.isPending ||
+    deleteTaskMutation.isPending
+  )
     return <Spinner />;
 
   return (
@@ -27,7 +32,10 @@ const TaskDetail = () => {
           <i className="bi bi-arrow-left text-xl"></i>
           <span>Back</span>
         </button>
-        <button className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95">
+        <button
+          className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
+          onClick={() => navigate(`/update-task/${taskId}`)}
+        >
           <i className="bi bi-pencil text-xl"></i>
         </button>
       </div>

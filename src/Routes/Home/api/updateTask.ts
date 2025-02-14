@@ -1,6 +1,6 @@
 import authenticatedFetch from "../../../utils/auth.wrapper";
 
-class UpdateTaskDto {
+export interface UpdateTaskDto {
   name?: string;
   description?: string;
   status?: "PENDING" | "COMPLETED";

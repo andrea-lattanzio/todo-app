@@ -23,7 +23,7 @@ const AddTask = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-scren overflow-y-auto">
-      <TaskForm onSubmitForm={handleSubmit} error={""} />
+      <TaskForm onSubmitForm={handleSubmit} error={addTaskMutation.error?.message} />
     </div>
   );
 };

@@ -15,6 +15,7 @@ import Categories from "./Routes/Categories/Categories.tsx";
 import Profile from "./Routes/Profile/Profile.tsx";
 import Layout from "./components/Layout.tsx";
 import TaskDetail from "./Routes/Home/components/TaskDetail.tsx";
+import UpdateTask from "./Routes/Home/components/UpdateTask.tsx";
 
 const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
 const About = React.lazy(() => import("./Routes/About/About.tsx"));
@@ -70,6 +71,14 @@ const Root = () => {
                     element={
                       <PrivateRoute>
                         <TaskDetail />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/update-task/:taskId"
+                    element={
+                      <PrivateRoute>
+                        <UpdateTask />
                       </PrivateRoute>
                     }
                   />

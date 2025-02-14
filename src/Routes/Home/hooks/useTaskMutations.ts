@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import deleteTask from "../api/deleteTask";
-import updateTask from "../api/updateTask";
+import updateTask, { UpdateTaskDto } from "../api/updateTask";
 
 export const useTaskMutations = (taskId: string) => {
   const queryClient = useQueryClient();
@@ -10,6 +10,16 @@ export const useTaskMutations = (taskId: string) => {
   const completeTaskMutation = useMutation({
     mutationFn: () =>
       updateTask(taskId, {status: "COMPLETED"}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
+      navigate("/");
+    },
+  });
+
+  const updateTaskMutation = useMutation({
+    mutationFn: (body: UpdateTaskDto) =>
+      updateTask(taskId, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["task", taskId] });
@@ -26,5 +36,5 @@ export const useTaskMutations = (taskId: string) => {
     },
   });
 
-  return { completeTaskMutation, deleteTaskMutation };
+  return { completeTaskMutation, deleteTaskMutation, updateTaskMutation };
 };

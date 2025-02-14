@@ -1,24 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomRadioProps, Option } from "../types/taskForm";
 
 const selectedColors = "text-gray-300 bg-[#585757]";
 
 const CustomRadio: React.FC<CustomRadioProps> = ({
-  options, // An array of objects
+  options,
   maxSelect = 1,
   colors = {},
   returnField = "id",
+  selectedRadio = [],
+  allowNone = false,
   onChange,
 }) => {
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>(
+    selectedRadio ? selectedRadio : []
+  );
+
+  useEffect(() => {
+    if (selected[0]) {
+      onChange(selected);
+    }
+  }, []);
 
   const handleSelect = (value: string) => {
     let newSelected;
     if (maxSelect === 1) {
-      newSelected = selected.includes(value) ? [] : [value];
+      if (selected.includes(value)) {
+        newSelected = allowNone ? [] : selected;
+      } else {
+        newSelected = [value];
+      }
     } else {
       if (selected.includes(value)) {
         newSelected = selected.filter((item) => item !== value);
+        if (!allowNone && newSelected.length === 0) return; 
       } else {
         if (selected.length < maxSelect) {
           newSelected = [...selected, value];

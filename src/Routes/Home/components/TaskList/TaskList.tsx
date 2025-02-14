@@ -11,7 +11,7 @@ const getMessage = (showCompleted: boolean): NoElementProps => {
         title: "No completed tasks",
         description: "You have not completed any tasks yet. Keep going!",
         icon: "bi-list-check",
-        createButton: true,
+        createButton: false,
       }
     : {
         elementName: "Task",

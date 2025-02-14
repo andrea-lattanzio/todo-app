@@ -1,8 +1,10 @@
 import { z } from "zod";
+import { TaskListItem } from "../../Home/types/task";
 
 export interface TaskFormProps {
   onSubmitForm: (data: TaskFormSchema) => void;
   error: string | undefined;
+  task?: TaskListItem;
 }
 
 export const taskSchema = z.object({
@@ -35,5 +37,7 @@ export interface CustomRadioProps {
   maxSelect?: number;
   colors?: { [key: string]: string };
   returnField?: keyof Option;
+  selectedRadio?: string[];
+  allowNone?: boolean;
   onChange: (option: string[] | null) => void;
 }

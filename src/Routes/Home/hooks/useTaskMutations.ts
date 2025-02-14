@@ -31,7 +31,6 @@ export const useTaskMutations = (taskId: string) => {
     mutationFn: () => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      queryClient.invalidateQueries({ queryKey: ["task", taskId] });
       navigate("/");
     },
   });

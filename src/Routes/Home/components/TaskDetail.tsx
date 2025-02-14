@@ -32,12 +32,14 @@ const TaskDetail = () => {
           <i className="bi bi-arrow-left text-xl"></i>
           <span>Back</span>
         </button>
-        <button
-          className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
-          onClick={() => navigate(`/update-task/${taskId}`)}
-        >
-          <i className="bi bi-pencil text-xl"></i>
-        </button>
+        {task.status != "COMPLETED" && (
+          <button
+            className="h-10 w-10 flex items-center justify-center p-2 bg-[#697565] text-gray-800 rounded-full transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
+            onClick={() => navigate(`/update-task/${taskId}`)}
+          >
+            <i className="bi bi-pencil text-xl"></i>
+          </button>
+        )}
       </div>
       <div className="select-none mt-3 h-auto w-full bg-[#2c2e2d] p-6 rounded-xl shadow-lg border-2 border-[#343434]">
         <div className="flex items-center justify-between">

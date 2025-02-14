@@ -1,3 +1,5 @@
+import { Category } from "../../Categories/types/Categories";
+
 export interface TaskListItem {
   id: string;
   name: string;
@@ -7,7 +9,7 @@ export interface TaskListItem {
   status: "PENDING" | "COMPLETED";
   createdAt: string;
   updatedAt: string;
-  categories?: { name: string }[];
+  categories?: Category[];
 }
 
 export interface TaskListProps {

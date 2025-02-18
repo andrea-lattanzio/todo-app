@@ -1,7 +1,7 @@
 import authenticatedFetch from "../../../../utils/auth.wrapper";
 import { Category } from "../types";
 
-interface AddCategoryDto {
+export interface AddCategoryDto {
   name: string;
   description: string;
 }

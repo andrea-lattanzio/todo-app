@@ -5,7 +5,7 @@ import { CategoryFormSchema, categorySchema } from "./CategoryFormTypes";
 
 interface CategoryFormProps {
   onSubmitForm: (data: CategoryFormSchema) => void;
-  error: string | undefined;
+  error: string | null;
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = ({ onSubmitForm, error }) => {

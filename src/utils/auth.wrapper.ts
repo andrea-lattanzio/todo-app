@@ -15,6 +15,8 @@ const handleError = async (response: Response) => {
   throw new Error(errorMessage);
 };
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 const authenticatedFetch = async <T>(
   url: string,
   options: RequestInit = {}
@@ -36,7 +38,7 @@ const authenticatedFetch = async <T>(
     },
   };
 
-  const response = await fetch(`${url}`, config);
+  const response = await fetch(`${baseUrl}`+`${url}`, config);
 
   if (!response.ok) {
     await handleError(response);

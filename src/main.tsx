@@ -10,26 +10,23 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AuthProvider from "./context/auth.context.tsx";
 import Register from "./Routes/Register/Register.tsx";
 import PrivateRoute from "./Routes/PrivateRoute.tsx";
-import AddTask from "./Routes/AddTask/AddTask.tsx";
-import Categories from "./Routes/Categories/Categories.tsx";
 import Profile from "./Routes/Profile/Profile.tsx";
 import Layout from "./components/Layout.tsx";
-import TaskDetail from "./Routes/Home/components/TaskDetail.tsx";
-import UpdateTask from "./Routes/Home/components/UpdateTask.tsx";
 
-const Home = React.lazy(() => import("./Routes/Home/Home.tsx"));
-const About = React.lazy(() => import("./Routes/About/About.tsx"));
+const Home = React.lazy(() => import("./Routes/Entities/Task/pages/Home.tsx"));
+const AddTask = React.lazy(() => import("./Routes/Entities/Task/pages/AddTask.tsx"));
+const UpdateTask = React.lazy(() => import("./Routes/Entities/Task/pages/UpdateTask.tsx"));
+const TaskDetail = React.lazy(() => import("./Routes/Entities/Task/pages/TaskDetail.tsx"));
+
+const Categories = React.lazy(() => import("./Routes/Entities/Category/pages/Categories.tsx"));
+
 const queryClient = new QueryClient();
 
-// Helper component to check the location and conditionally render AuthProvider
 const AuthProviderWrapper = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
-
-  // Do not wrap with AuthProvider on login or register routes
   if (location.pathname === "/login" || location.pathname === "/register") {
     return <>{children}</>;
   }
-
   return <AuthProvider>{children}</AuthProvider>;
 };
 
@@ -104,14 +101,6 @@ const Root = () => {
                       <PrivateRoute>
                         <Profile />
                       </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    path="about"
-                    element={
-                      <Suspense fallback={<Spinner />}>
-                        <About />
-                      </Suspense>
                     }
                   />
                 </Route>

@@ -10,8 +10,10 @@ const Layout = () => {
       <div className="flex flex-col min-h-screen">
         <div className="flex flex-1">
           <Sidebar />
-          <main className="flex-1 p-5 overflow-y-scroll h-[calc(100vh-20vh)] md:h-[calc(100vh-11vh)]">
-            <Outlet />
+          <main className="relative flex-1 overflow-y-scroll p-3 h-[calc(100vh-20vh)] md:h-[calc(100vh-11vh)]">
+            <div className="relative w-full h-full">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>

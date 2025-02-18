@@ -1,6 +1,6 @@
 const Spinner = () => {
   return (
-    <div className="lg:left-[10%] fixed top-0 left-0 w-full h-full bg-opacity-20 flex justify-center items-center z-50">
+    <div className="bg-[#292929] absolute inset-0 flex items-center justify-center z-10">
       <div className="spinner"></div>
     </div>
   );

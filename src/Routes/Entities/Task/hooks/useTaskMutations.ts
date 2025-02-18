@@ -14,14 +14,16 @@ export const useTaskMutations = (taskId: string = "") => {
     mutationFn: (newTask: AddTaskDto) => addTask(newTask),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      navigate("/");
     },
     onError: (error) => {
       setError(error.message);
-    }
+    },
   });
 
   const updateTaskMutation = useMutation({
-    mutationFn: (body: UpdateTaskDto) => updateTask(taskId, body),
+    mutationFn: ({ id, body }: { id?: string; body: UpdateTaskDto }) =>
+      updateTask(id ? id : taskId, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["task", taskId] });
@@ -30,7 +32,7 @@ export const useTaskMutations = (taskId: string = "") => {
   });
 
   const deleteTaskMutation = useMutation({
-    mutationFn: () => deleteTask(taskId),
+    mutationFn: (id: string) => deleteTask(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       navigate("/");

@@ -2,10 +2,12 @@ import { useMemo, useState } from "react";
 import useTasks from "../hooks/useTasks";
 import TaskList from "../components/taskList/TaskList";
 import Spinner from "../../../../components/Spinner";
+import { useTaskMutations } from "../hooks/useTaskMutations";
 
 const Home = () => {
   const { data, isLoading, isFetching } = useTasks();
   const [showCompleted, setShowCompleted] = useState(false);
+  const { updateTaskMutation, deleteTaskMutation } = useTaskMutations();
 
   const filteredTasks = useMemo(() => {
     if (!data) return [];
@@ -16,10 +18,20 @@ const Home = () => {
     });
   }, [data, showCompleted]);
 
+  const handleComplete = (id: string) => {
+    updateTaskMutation.mutate({ id: id, body: { status: "COMPLETED" } });
+  };
+
+  const handleDelete = (id: string) => {
+    deleteTaskMutation.mutate(id);
+  };
+
   if (
     !data ||
     isLoading ||
-    isFetching
+    isFetching ||
+    updateTaskMutation.isPending ||
+    deleteTaskMutation.isPending
   )
     return <Spinner />;
 
@@ -31,6 +43,8 @@ const Home = () => {
             tasks={data}
             filteredTasks={filteredTasks}
             showCompleted={showCompleted}
+            onComplete={handleComplete}
+            onDelete={handleDelete}
           />
         </div>
         {data.length > 0 && (

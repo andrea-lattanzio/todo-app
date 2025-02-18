@@ -8,11 +8,16 @@ import {
 
 interface TaskListItemProps {
   task: Task;
+  onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
+const TaskListItem: React.FC<TaskListItemProps> = ({
+  task,
+  onComplete,
+  onDelete,
+}) => {
   const navigate = useNavigate();
-  const { updateTaskMutation, deleteTaskMutation } = useTaskMutations(task.id);
 
   return (
     <div
@@ -70,7 +75,7 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
               className="hover:text-gray-400 transition duration-300"
               onClick={(e) => {
                 e.stopPropagation();
-                updateTaskMutation.mutate({ status: "COMPLETED" });
+                onComplete(task.id);
               }}
             >
               <i className="bi bi-check-circle cursor-pointer text-2xl"></i>
@@ -83,7 +88,7 @@ const TaskListItem: React.FC<TaskListItemProps> = ({ task }) => {
             className="hover:text-gray-400 transition duration-300"
             onClick={(e) => {
               e.stopPropagation();
-              deleteTaskMutation.mutate();
+              onDelete(task.id);
             }}
           >
             <i className="bi bi-trash cursor-pointer text-2xl"></i>

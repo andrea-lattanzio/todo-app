@@ -25,12 +25,16 @@ interface TaskListProps {
   tasks: Task[];
   filteredTasks: Task[];
   showCompleted: boolean;
+  onComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 const TaskList: React.FC<TaskListProps> = ({
   tasks,
   filteredTasks,
   showCompleted,
+  onComplete,
+  onDelete
 }) => {
   if (tasks.length === 0) {
     const message: NoElementProps = {
@@ -54,7 +58,7 @@ const TaskList: React.FC<TaskListProps> = ({
       </div>
       <div className="mt-2 space-y-2 px-3 overflow-y-auto h-[calc(100%-3rem)] scrollbar-hidden pb-5">
         {filteredTasks.map((task) => (
-          <TaskListItem key={task.id} task={task} />
+          <TaskListItem key={task.id} task={task} onComplete={onComplete} onDelete={onDelete}/>
         ))}
       </div>
     </div>

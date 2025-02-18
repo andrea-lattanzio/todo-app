@@ -122,7 +122,7 @@ const TaskDetail = () => {
           <button
             className="text-center lg:w-60 w-full py-2 bg-[#697565] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#5a6456] active:scale-95"
             onClick={() => {
-              updateTaskMutation.mutate({ status: "COMPLETED" });
+              updateTaskMutation.mutate({ id: taskId, body: { status: "COMPLETED"}});
             }}
           >
             Mark as completed
@@ -131,7 +131,7 @@ const TaskDetail = () => {
         <button
           className="text-center lg:w-60 w-full py-2 bg-[#f88b25] flex items-center justify-center text-gray-800 font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-[#e67e22] active:scale-95"
           onClick={() => {
-            deleteTaskMutation.mutate();
+            deleteTaskMutation.mutate(taskId);
           }}
         >
           Delete

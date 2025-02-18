@@ -20,18 +20,14 @@ const UpdateTask = () => {
       priority: task.priority[0],
       categories: task.categories,
     };
-    updateTaskMutation.mutate(taskDto);
+    updateTaskMutation.mutate({ body: taskDto });
   };
 
   if (isLoading || !task) return <Spinner />;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-scren overflow-y-auto">
-      <TaskForm
-        task={task}
-        onSubmitForm={handleSubmit}
-        error={error}
-      />
+      <TaskForm task={task} onSubmitForm={handleSubmit} error={error} />
     </div>
   );
 };

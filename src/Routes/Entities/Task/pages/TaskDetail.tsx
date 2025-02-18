@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTask from "../hooks/useTask";
-import { useTaskMutations } from "../hooks/useTasksMutations";
+import { useTaskMutations } from "../hooks/useTaskMutations";
 import Spinner from "../../../../components/Spinner";
 import {
   priorityColors,

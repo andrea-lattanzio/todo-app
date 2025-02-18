@@ -10,7 +10,7 @@ import useCategories from "../../../Category/hooks/useCategories";
 
 export interface TaskFormProps {
   onSubmitForm: (data: TaskFormSchema) => void;
-  error: string | undefined;
+  error: string | null;
   task?: Task;
 }
 

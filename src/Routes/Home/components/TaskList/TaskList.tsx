@@ -25,7 +25,7 @@ const TaskList: React.FC<TaskListProps> = ({
   tasks,
   filteredTasks,
   showCompleted,
-  refetch
+  refetch,
 }) => {
   if (tasks.length === 0) {
     const message: NoElementProps = {
@@ -49,7 +49,7 @@ const TaskList: React.FC<TaskListProps> = ({
       </div>
       <div className="mt-2 space-y-2 px-3 overflow-y-auto h-[calc(100%-3rem)] scrollbar-hidden pb-5">
         {filteredTasks.map((task) => (
-          <Task key={task.id} task={task} refetch={refetch}/>
+          <Task key={task.id} task={task} refetch={refetch} />
         ))}
       </div>
     </div>

@@ -4,7 +4,7 @@ import useTasks from "./hooks/useTasks";
 import { useMemo, useState } from "react";
 
 const Home = () => {
-  const { data, isLoading, refetch } = useTasks();
+  const { data, isLoading, isFetching, refetch } = useTasks();
   const [showCompleted, setShowCompleted] = useState(false);
 
   const filteredTasks = useMemo(() => {
@@ -16,7 +16,7 @@ const Home = () => {
     });
   }, [data, showCompleted]);
 
-  if (!data || isLoading) return <Spinner />;
+  if (!data || isLoading || isFetching) return <Spinner />;
 
   return (
     <div className="select-none overflow-auto h-[calc(100vh-100)]">

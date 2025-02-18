@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .env
 .env.production
+.firebase/hosting.ZGlzdA.cache
+.firebase/hosting.ZGlzdA.cache

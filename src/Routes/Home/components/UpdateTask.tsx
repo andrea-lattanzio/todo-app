@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import TaskForm from "../../AddTask/components/TaskForm";
 import { TaskFormSchema } from "../../AddTask/types/taskForm";
-import { AddTaskDto } from "../../AddTask/api/postTask";
 import { useTaskMutations } from "../hooks/useTaskMutations";
 import useTask from "../hooks/useTask";
 import Spinner from "../../../components/Spinner";

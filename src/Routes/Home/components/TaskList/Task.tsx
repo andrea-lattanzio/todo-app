@@ -67,7 +67,10 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
             <button
               type="button"
               className="hover:text-gray-400 transition duration-300"
-              onClick={() => completeTaskMutation.mutate()}
+              onClick={(e) => {
+                e.stopPropagation();
+                completeTaskMutation.mutate();
+              }}
             >
               <i className="bi bi-check-circle cursor-pointer text-2xl"></i>
             </button>
@@ -77,7 +80,10 @@ const Task: React.FC<TaskItemProps> = ({ task }) => {
           <button
             type="button"
             className="hover:text-gray-400 transition duration-300"
-            onClick={() => deleteTaskMutation.mutate()}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteTaskMutation.mutate();
+            }}
           >
             <i className="bi bi-trash cursor-pointer text-2xl"></i>
           </button>

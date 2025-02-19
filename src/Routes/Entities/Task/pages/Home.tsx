@@ -36,7 +36,7 @@ const Home = () => {
     return <Spinner />;
 
   return (
-    <div className="select-none overflow-auto h-[calc(100vh-100)]">
+    <div className="select-none">
       <div className="flex flex-col items-center justify-center">
         <div className="h-96 w-full bg-[#2c2e2d] p-4 rounded-xl shadow-lg border-2 border-[#343434] flex flex-col items-center justify-center">
           <TaskList

@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
+<p align="center">
+  <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="80" height="80"/> </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="80" height="80"/> </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://tailwindcss.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="80" height="80"/> </a>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To-Do App
+=========
 
-Currently, two official plugins are available:
+Description
+-----------
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a React To-Do application that allows users to manage some tasks. Users can sign up or log in using their email and password. Once authenticated, they can create, update, complete, and delete tasks, as well as categorize them for better organization. The app also includes a profile section for user settings. <a href="https://andrea-lattanzio-todo-ap-f0c77.web.app/">You can see the deployed app here!</a>
 
-## Expanding the ESLint configuration
+Features
+--------
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+*   **Authentication**: Sign up and sign in with email and password.
+    
+*   **Task Management**:
+    
+    *   Create new tasks
+        
+    *   Update existing tasks
+        
+    *   Mark tasks as completed
+        
+    *   Delete tasks
+        
+    *   Filter tasks based on status or category
+        
+*   **Category Management**:
+    
+    *   Create new categories
+        
+    *   Delete categories
+        
+    *   Assign tasks to categories
+        
+*   **User Profile**: A dedicated section for user information and settings.
+    
 
-- Configure the top-level `parserOptions` property like this:
+Tech Stack
+----------
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+*   **Vite** - For fast project setup and development
+    
+*   **React** - Core framework for building UI
+    
+*   **React Router** - Handles routing/navigation within the app
+    
+*   **TanStack Query** - Manages API calls and cached data
+    
+*   **Context API** - Stores the currently logged-in user
+    
+*   **React Hook Form** - Handles form inputs efficiently
+    
+*   **Zod** - Validates form data for accuracy and security
+    
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Installation
+------------
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1.  git clone https://github.com/andrea-lattanzio/todo-app.git
+    
+2.  npm install
+    
+3.  npm run dev

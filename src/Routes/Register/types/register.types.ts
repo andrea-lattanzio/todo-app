@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export interface RegisterFormProps {
   onSubmitForm: (data: RegisterFormSchema) => void;
-  error: string | null;
+  error: string | undefined;
 }
 
 export const registerSchema = z.object({
